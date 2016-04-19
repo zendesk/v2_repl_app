@@ -1,0 +1,57 @@
+section[data-main] {
+  form, section {
+    height: 100%;
+  }
+
+  pre,
+  .script {
+    font-family: Consolas, Courier, monospace;
+    font-size: 12px;
+  }
+
+  .script {
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  pre {
+    padding: 0 3px;
+    line-height: 18px;
+    margin: 2px 0;
+    background-color: #fff;
+    border: 0;
+
+    &.input {
+      color: #007CFF;
+    }
+
+    &.error {
+      color: #FF0000;
+    }
+
+    &.output {
+      border-bottom: solid 1px #eee;
+    }
+  }
+
+  .history-container {
+    width: 100%;
+    box-sizing: border-box;
+    height: calc(100% - 25px);
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    overflow: auto;
+
+    &.ticket_sidebar,
+    &.new_ticket_sidebar,
+    &.user_sidebar,
+    &.organization_sidebar {
+      height: 400px;
+    }
+
+    &.top_bar {
+      height: 315px;
+    }
+  }
+}
