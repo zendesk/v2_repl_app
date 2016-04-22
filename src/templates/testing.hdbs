@@ -1,0 +1,4 @@
+<form>
+  <div class="history-container {{location}}"></div>
+  <input type="text" class="script"></textarea>
+</form>
