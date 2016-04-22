@@ -40,7 +40,7 @@ module.exports = {
         loader: 'handlebars-loader',
         query: {
           extensions: ['handlebars', 'hdbs', 'hbs'],
-          runtime: 'handlebars/runtime'
+          runtime: 'handlebars'
         }
       }
     ]
@@ -49,11 +49,7 @@ module.exports = {
     extensions: ['', '.js']
   },
   externals: {
-   'handlebars/runtime': {
-      root: 'Handlebars',
-      commonjs: 'handlebars/runtime',
-      commonjs2: 'handlebars/runtime'
-    },
+    handlebars: 'Handlebars',
     jquery: 'jQuery',
     lodash: '_',
     moment: 'moment',
