@@ -24,18 +24,27 @@ var CommandHistory = (function() {
       currentCommandIndex = 0;
 
   return {
-    addCommand: function(cmd) {
-      history.push(cmd);
+    addCommand(cmd) {
+      let time = performance.now();
+      history.push({
+        cmd,
+        time
+      });
       currentCommandIndex = history.length;
+      return currentCommandIndex - 1;
     },
 
-    previousCommand: function() {
+    commandAt(index = 0) {
+      return history[index];
+    },
+
+    previousCommand() {
       if (currentCommandIndex >= 0) {
         return history[--currentCommandIndex];
       }
     },
 
-    nextCommand: function() {
+    nextCommand() {
       if (currentCommandIndex < history.length) {
         return history[++currentCommandIndex];
       }
