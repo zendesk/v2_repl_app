@@ -64,19 +64,35 @@ var log = (function() {
     }
   }
 
-  return function(input, value, type) {
+  function appendToHistory(input, value, type) {
     var $historyContainer = this.$('.history-container');
 
-    logEval(input, value);
-    CommandHistory.addCommand(input);
-
     $historyContainer.append(
-      this.$('<pre class="history input">').text(++counter + ': ' + input)
+      this.$('<pre class="history input">').text(input)
     ).append(
-      this.$('<pre class="history output">').text('> ' + value).addClass(type)
+      this.$('<pre class="history output">').text(`> ${value}`).addClass(type)
     );
 
     $historyContainer.scrollTop($historyContainer.get(0).scrollHeight);
+  }
+
+  return function(input, value, type) {
+    let currentCount = ++counter;
+
+    CommandHistory.addCommand(input);
+
+    if (isThennable(value)) {
+      value.then((data) => {
+        let formatted = format(data);
+        let { time } = CommandHistory.commandAt(currentCount - 1);
+        let elapsedTime = performance.now() - time;
+        appendToHistory.call(this, `${currentCount}: async response (${elapsedTime}ms)`, formatted);
+        logEval(input, formatted);
+      });
+      input = `async request - ${input}`;
+    }
+
+    appendToHistory.apply(this, [`${currentCount}: ${input}`, format(value), type]);
   };
 }());
 
@@ -136,12 +152,11 @@ var App = {
       try {
 
         var input = $script.val().trim(),
-            value = eval(input),
-            formatedValue = format.call(this, value);
+            value = eval(input);
 
         if (!input) { return; }
 
-        log.call(this, input, formatedValue);
+        log.call(this, input, value);
       } catch(e) {
         oldConsole.error(e);
         logError.call(this, input, e);
@@ -155,13 +170,14 @@ var App = {
 
     'keydown .script': function(e) {
       if (e.which === UP_ARROW_KEY) {
-        var cmd = CommandHistory.previousCommand();
+        let { cmd } = CommandHistory.previousCommand();
         if (cmd) {
           e.preventDefault();
           this.$('.script').val(cmd);
         }
       } else if (e.which === DOWN_ARROW_KEY) {
-        this.$('.script').val(CommandHistory.nextCommand() || '');
+        let { cmd } = CommandHistory.nextCommand();
+        this.$('.script').val(cmd || '');
       }
     }
   }
