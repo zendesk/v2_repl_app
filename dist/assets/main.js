@@ -97,7 +97,7 @@
 	var UP_ARROW_KEY = 38,
 	    DOWN_ARROW_KEY = 40;
 	
-	var isPromise = function isPromise(value) {
+	var isThennable = function isThennable(value) {
 	  return _.isObject(value) && _.isFunction(value.then);
 	};
 	
@@ -117,7 +117,7 @@
 	
 	  return {
 	    addCommand: function addCommand(cmd) {
-	      var time = Date.now();
+	      var time = performance.now();
 	      history.push({
 	        cmd: cmd,
 	        time: time
@@ -170,26 +170,26 @@
 	  return function (input, value, type) {
 	    var _this = this;
 	
-	    ++counter;
+	    var currentCount = ++counter;
 	
 	    CommandHistory.addCommand(input);
 	
-	    if (isPromise(value)) {
+	    if (isThennable(value)) {
 	      value.then(function (data) {
 	        var formatted = format(data);
 	
-	        var _CommandHistory$comma = CommandHistory.commandAt(counter - 1);
+	        var _CommandHistory$comma = CommandHistory.commandAt(currentCount - 1);
 	
 	        var time = _CommandHistory$comma.time;
 	
-	        var elapsedTime = Date.now() - time;
-	        appendToHistory.call(_this, counter + ': async response (' + elapsedTime + 'ms)', formatted);
+	        var elapsedTime = performance.now() - time;
+	        appendToHistory.call(_this, currentCount + ': async response (' + elapsedTime + 'ms)', formatted);
 	        logEval(input, formatted);
 	      });
 	      input = 'async request - ' + input;
 	    }
 	
-	    appendToHistory.apply(this, [counter + ': ' + input, format(value), type]);
+	    appendToHistory.apply(this, [currentCount + ': ' + input, format(value), type]);
 	  };
 	}();
 	

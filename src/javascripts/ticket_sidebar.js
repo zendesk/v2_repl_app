@@ -4,11 +4,6 @@ import helpers from './helpers';
 var UP_ARROW_KEY   = 38,
     DOWN_ARROW_KEY = 40;
 
-var isThennable = function(value) {
-  return _.isObject(value) &&
-    _.isFunction(value.then);
-};
-
 var format = function(value) {
   if (_.isObject(value) || _.isArray(value)) {
     return JSON.stringify(value, undefined, 2);
@@ -81,7 +76,7 @@ var log = (function() {
 
     CommandHistory.addCommand(input);
 
-    if (isThennable(value)) {
+    if (value instanceof Promise) {
       value.then((data) => {
         let formatted = format(data);
         let { time } = CommandHistory.commandAt(currentCount - 1);
