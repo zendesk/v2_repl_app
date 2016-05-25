@@ -4,6 +4,11 @@ import helpers from './helpers';
 var UP_ARROW_KEY   = 38,
     DOWN_ARROW_KEY = 40;
 
+var isThennable = function(value) {
+  return _.isObject(value) &&
+    _.isFunction(value.then);
+};
+
 var format = function(value) {
   if (_.isObject(value) || _.isArray(value)) {
     return JSON.stringify(value, undefined, 2);
