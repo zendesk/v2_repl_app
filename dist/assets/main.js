@@ -1,2 +1,512 @@
-!function(t){function e(o){if(n[o])return n[o].exports;var i=n[o]={exports:{},id:o,loaded:!1};return t[o].call(i.exports,i,i.exports,e),i.loaded=!0,i.exports}var n={};return e.m=t,e.c=n,e.p="",e(0)}([function(t,e,n){n(4),t.exports=n(6)},function(t,e){t.exports=Handlebars},function(t,e,n){"use strict";function o(t){return t&&t.__esModule?t:{"default":t}}function i(){}function r(t,e){var n=t.events[e];return n?_.isFunction(n)?n.bind(t):t[n].bind(t):i}function a(t){_.each(t.events,function(e,n){var o=n.split(" "),i=o[0],a=o[1],s=!!a,u=r(t,n);s?(0,c["default"])(document).on(i,a,u):t.zafClient.on(i,u)}.bind(t))}function s(t,e){this._location=e.context.location,this.zafClient=t,a(this),this.defaultState&&this.switchTo(this.defaultState),r(this,"app.created")()}Object.defineProperty(e,"__esModule",{value:!0});var u=n(11),c=o(u);s.prototype={events:{},requests:{},currentLocation:function(){return this._location},ajax:function(t){var e=this.requests[t],n=r(this,t+".done"),o=r(this,t+".fail"),i=r(this,t+".always"),a=_.isFunction(e)?e.apply(this,Array.prototype.slice.call(arguments,1)):e;return this.zafClient.request(a).then(n,o).then(i,i)},renderTemplate:function(t,e){var o=n(9)("./"+t+".hdbs");return o(e)},switchTo:function(t,e){this.$("[data-main]").html(this.renderTemplate(t,e))},$:function(){var t=Array.prototype.slice.call(arguments,0);return t.length?c["default"].apply(c["default"],arguments):(0,c["default"])("body")}},s.extend=function(t){var e=function(t,e){s.call(this,t,e)};return e.prototype=_.extend({},s.prototype,t),e},e["default"]=s},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n={fmt:function(t,e){var n=e;if(!_.isArray(n)||arguments.length>2){n=new Array(arguments.length-1);for(var o=1,i=arguments.length;i>o;o++)n[o-1]=arguments[o]}var r=0;return t.replace(/%@([0-9]+)?/g,function(t,e){return e=e?parseInt(e,10)-1:r++,t=n[e],null===t?"(null)":void 0===t?"":_.isFunction(t.toString)?t.toString():t})}};e["default"]=n},function(t,e,n){"use strict";function o(t){return t&&t.__esModule?t:{"default":t}}var i=n(5),r=o(i),a=n(10),s=o(a),u=s["default"].init();window.zafClient=u,u.on("app.registered",function(t){"ticket_sidebar"===t.context.location&&new r["default"](u,t)})},function(module,exports,__webpack_require__){"use strict";function _interopRequireDefault(t){return t&&t.__esModule?t:{"default":t}}Object.defineProperty(exports,"__esModule",{value:!0});var _base_app=__webpack_require__(2),_base_app2=_interopRequireDefault(_base_app),_helpers=__webpack_require__(3),_helpers2=_interopRequireDefault(_helpers),UP_ARROW_KEY=38,DOWN_ARROW_KEY=40,format=function(t){return _.isObject(t)||_.isArray(t)?JSON.stringify(t,void 0,2):_.isUndefined(t)?"undefined":t},CommandHistory=function(){var t=[],e=0;return{addCommand:function(n){t.push(n),e=t.length},previousCommand:function(){return e>=0?t[--e]:void 0},nextCommand:function(){return e<t.length?t[++e]:void 0}}}(),log=function(){function t(t,e){console&&console.info&&(console.group&&console.group("REPL App"),console.info("Eval: ",t),console.info("Result: ",e),console.groupEnd&&console.groupEnd())}var e=0;return function(n,o,i){var r=this.$(".history-container");t(n,o),CommandHistory.addCommand(n),r.append(this.$('<pre class="history input">').text(++e+": "+n)).append(this.$('<pre class="history output">').text("> "+o).addClass(i)),r.scrollTop(r.get(0).scrollHeight)}}(),logError=function(t,e){log.call(this,t,e.name+": "+e.message+"\n"+e.stack,"error")},FunctionToJson,stubFunction=function(){FunctionToJson=Function.prototype.toJSON,Function.prototype.toJSON=function(){return"function"+(this.name?": "+this.name:"")}},unstubFunction=function(){Function.prototype.toJSON=FunctionToJson},logEvent=function(){var t;return function(e,n){if(console&&console.info){var o=Array.prototype.slice.call(arguments,2),i=_helpers2["default"].fmt("REPL app (%@) received: '%@'",e,n);t=t||Function.prototype.bind.call(console.info,console),t.apply(console,[i].concat(o))}}}(),fakeLog=function(t){var e=this.$(".history-container"),n=format.call(this,t),o=this.$('<pre class="history output">').text(n);_.defer(function(){e.append(o),e.scrollTop(e.get(0).scrollHeight)})},App={defaultState:"testing",events:{"submit form":function submitForm(event){event.preventDefault();var oldConsole=window.console,$script=this.$(".script");stubFunction();var console={log:fakeLog.bind(this)};try{var input=$script.val().trim(),value=eval(input),formatedValue=format.call(this,value);if(!input)return;log.call(this,input,formatedValue)}catch(e){oldConsole.error(e),logError.call(this,input,e)}console=oldConsole,unstubFunction(),$script.val("").select()},"keydown .script":function(t){if(t.which===UP_ARROW_KEY){var e=CommandHistory.previousCommand();e&&(t.preventDefault(),this.$(".script").val(e))}else t.which===DOWN_ARROW_KEY&&this.$(".script").val(CommandHistory.nextCommand()||"")}}};["app.created","app.activated","app.deactivated","pane.activated","pane.deactivated","app.willDestroy","*.changed","app.route.changed","ticket.submit.start","ticket.submit.done","ticket.submit.fail","ticket.submit.always","ticket.viewers.changed","ticket.updated","ticket.save","ticket.saved"].forEach(function(t){App.events[t]=function(){logEvent(this.currentLocation(),t,arguments)}}),exports["default"]=_base_app2["default"].extend(App)},function(t,e){},function(t,e,n){var o=n(1);t.exports=(o["default"]||o).template({compiler:[7,">= 4.0.0"],main:function(t,e,n,o,i){return'<header>\n  <span class="logo"/>\n  <h3>'+t.escapeExpression((n.setting||e&&e.setting||n.helperMissing).call(null!=e?e:{},"name",{name:"setting",hash:{},data:i}))+"</h3>\n</header>\n<section data-main/>\n"},useData:!0})},function(t,e,n){var o=n(1);t.exports=(o["default"]||o).template({compiler:[7,">= 4.0.0"],main:function(t,e,n,o,i){var r;return'<form>\n  <div class="history-container '+t.escapeExpression((r=null!=(r=n.location||(null!=e?e.location:e))?r:n.helperMissing,"function"==typeof r?r.call(null!=e?e:{},{name:"location",hash:{},data:i}):r))+'"></div>\n  <input type="text" class="script"></textarea>\n</form>\n'},useData:!0})},function(t,e,n){function o(t){return n(i(t))}function i(t){return r[t]||function(){throw new Error("Cannot find module '"+t+"'.")}()}var r={"./layout.hdbs":7,"./testing.hdbs":8};o.keys=function(){return Object.keys(r)},o.resolve=i,t.exports=o,o.id=9},function(t,e){t.exports=ZAFClient},function(t,e){t.exports=jQuery}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+/******/
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(1);
+	module.exports = __webpack_require__(11);
+
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _ticket_sidebar = __webpack_require__(2);
+	
+	var _ticket_sidebar2 = _interopRequireDefault(_ticket_sidebar);
+	
+	var _zendesk_app_framework_sdk = __webpack_require__(10);
+	
+	var _zendesk_app_framework_sdk2 = _interopRequireDefault(_zendesk_app_framework_sdk);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var client = _zendesk_app_framework_sdk2.default.init();
+	
+	window.zafClient = client;
+	
+	client.on('app.registered', function (data) {
+	  if (data.context.location === 'ticket_sidebar') {
+	    new _ticket_sidebar2.default(client, data);
+	  }
+	});
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _base_app = __webpack_require__(3);
+	
+	var _base_app2 = _interopRequireDefault(_base_app);
+	
+	var _helpers = __webpack_require__(9);
+	
+	var _helpers2 = _interopRequireDefault(_helpers);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var UP_ARROW_KEY = 38,
+	    DOWN_ARROW_KEY = 40;
+	
+	var isPromise = function isPromise(value) {
+	  return _.isObject(value) && _.isFunction(value.then);
+	};
+	
+	var format = function format(value) {
+	  if (_.isObject(value) || _.isArray(value)) {
+	    return JSON.stringify(value, undefined, 2);
+	  }
+	  if (_.isUndefined(value)) {
+	    return 'undefined';
+	  }
+	  return value;
+	};
+	
+	var CommandHistory = function () {
+	  var history = [],
+	      currentCommandIndex = 0;
+	
+	  return {
+	    addCommand: function addCommand(cmd) {
+	      var time = Date.now();
+	      history.push({
+	        cmd: cmd,
+	        time: time
+	      });
+	      currentCommandIndex = history.length;
+	      return currentCommandIndex - 1;
+	    },
+	    commandAt: function commandAt() {
+	      var index = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+	
+	      return history[index];
+	    },
+	    previousCommand: function previousCommand() {
+	      if (currentCommandIndex >= 0) {
+	        return history[--currentCommandIndex];
+	      }
+	    },
+	    nextCommand: function nextCommand() {
+	      if (currentCommandIndex < history.length) {
+	        return history[++currentCommandIndex];
+	      }
+	    }
+	  };
+	}();
+	
+	var log = function () {
+	  var counter = 0;
+	
+	  function logEval(input, value) {
+	    if (console && console.info) {
+	      if (console.group) {
+	        console.group('REPL App');
+	      }
+	      console.info("Eval: ", input);
+	      console.info("Result: ", value);
+	      if (console.groupEnd) {
+	        console.groupEnd();
+	      }
+	    }
+	  }
+	
+	  function appendToHistory(input, value, type) {
+	    var $historyContainer = this.$('.history-container');
+	
+	    $historyContainer.append(this.$('<pre class="history input">').text(input)).append(this.$('<pre class="history output">').text('> ' + value).addClass(type));
+	
+	    $historyContainer.scrollTop($historyContainer.get(0).scrollHeight);
+	  }
+	
+	  return function (input, value, type) {
+	    var _this = this;
+	
+	    ++counter;
+	
+	    CommandHistory.addCommand(input);
+	
+	    if (isPromise(value)) {
+	      value.then(function (data) {
+	        var formatted = format(data);
+	
+	        var _CommandHistory$comma = CommandHistory.commandAt(counter - 1);
+	
+	        var time = _CommandHistory$comma.time;
+	
+	        var elapsedTime = Date.now() - time;
+	        appendToHistory.call(_this, counter + ': async response (' + elapsedTime + 'ms)', formatted);
+	        logEval(input, formatted);
+	      });
+	      input = 'async request - ' + input;
+	    }
+	
+	    appendToHistory.apply(this, [counter + ': ' + input, format(value), type]);
+	  };
+	}();
+	
+	var logError = function logError(input, error) {
+	  log.call(this, input, error.name + ': ' + error.message + '\n' + error.stack, 'error');
+	};
+	
+	var FunctionToJson;
+	var stubFunction = function stubFunction() {
+	  FunctionToJson = Function.prototype.toJSON;
+	  Function.prototype.toJSON = function () {
+	    return 'function' + (this.name ? ': ' + this.name : '');
+	  };
+	};
+	
+	var unstubFunction = function unstubFunction() {
+	  Function.prototype.toJSON = FunctionToJson;
+	};
+	
+	var logEvent = function () {
+	  var info;
+	  return function (location, evt) {
+	    if (!console || !console.info) {
+	      return;
+	    }
+	    var args = Array.prototype.slice.call(arguments, 2);
+	    var message = _helpers2.default.fmt("REPL app (%@) received: '%@'", location, evt);
+	    info = info || Function.prototype.bind.call(console.info, console); // so we can use apply in IE 9 (http://stackoverflow.com/a/5539378)
+	    info.apply(console, [message].concat(args));
+	  };
+	}();
+	
+	var fakeLog = function fakeLog(value) {
+	  var $historyContainer = this.$('.history-container'),
+	      formatedValue = format.call(this, value),
+	      $output = this.$('<pre class="history output">').text(formatedValue);
+	
+	  _.defer(function () {
+	    $historyContainer.append($output);
+	    $historyContainer.scrollTop($historyContainer.get(0).scrollHeight);
+	  });
+	};
+	
+	var App = {
+	  defaultState: 'testing',
+	
+	  events: {
+	    'submit form': function submitForm(event) {
+	      event.preventDefault();
+	
+	      var oldConsole = window.console;
+	      var $script = this.$('.script');
+	
+	      stubFunction();
+	      var console = {
+	        log: fakeLog.bind(this)
+	      };
+	
+	      try {
+	
+	        var input = $script.val().trim(),
+	            value = eval(input);
+	
+	        if (!input) {
+	          return;
+	        }
+	
+	        log.call(this, input, value);
+	      } catch (e) {
+	        oldConsole.error(e);
+	        logError.call(this, input, e);
+	      }
+	
+	      console = oldConsole;
+	      unstubFunction();
+	
+	      $script.val('').select();
+	    },
+	
+	    'keydown .script': function keydownScript(e) {
+	      if (e.which === UP_ARROW_KEY) {
+	        var _CommandHistory$previ = CommandHistory.previousCommand();
+	
+	        var cmd = _CommandHistory$previ.cmd;
+	
+	        if (cmd) {
+	          e.preventDefault();
+	          this.$('.script').val(cmd);
+	        }
+	      } else if (e.which === DOWN_ARROW_KEY) {
+	        var _CommandHistory$nextC = CommandHistory.nextCommand();
+	
+	        var _cmd = _CommandHistory$nextC.cmd;
+	
+	        this.$('.script').val(_cmd || '');
+	      }
+	    }
+	  }
+	};
+	
+	['app.created', 'app.activated', 'app.deactivated', 'pane.activated', 'pane.deactivated', 'app.willDestroy', '*.changed', 'app.route.changed', 'ticket.submit.start', 'ticket.submit.done', 'ticket.submit.fail', 'ticket.submit.always', 'ticket.viewers.changed', 'ticket.updated', 'ticket.save', 'ticket.saved'].forEach(function (key) {
+	  App.events[key] = function () {
+	    logEvent(this.currentLocation(), key, arguments);
+	  };
+	});
+	
+	exports.default = _base_app2.default.extend(App);
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jquery = __webpack_require__(4);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function noop() {}
+	
+	function resolveHandler(app, name) {
+	  var handler = app.events[name];
+	  if (!handler) {
+	    return noop;
+	  }
+	  return _.isFunction(handler) ? handler.bind(app) : app[handler].bind(app);
+	}
+	
+	function bindEvents(app) {
+	  _.each(app.events, function (fn, key) {
+	    var splittedKey = key.split(' '),
+	        event = splittedKey[0],
+	        element = splittedKey[1],
+	        isDomEvent = !!element,
+	        func = resolveHandler(app, key);
+	
+	    if (isDomEvent) {
+	      (0, _jquery2.default)(document).on(event, element, func);
+	    } else {
+	      app.zafClient.on(event, func);
+	    }
+	  }.bind(app));
+	}
+	
+	function BaseApp(zafClient, data) {
+	  this._location = data.context.location;
+	  this.zafClient = zafClient;
+	  bindEvents(this);
+	
+	  if (this.defaultState) {
+	    this.switchTo(this.defaultState);
+	  }
+	  resolveHandler(this, 'app.created')();
+	}
+	
+	BaseApp.prototype = {
+	  // These are public APIs of the framework that we are shimming to make it
+	  // easier to migrate existing apps
+	  events: {},
+	  requests: {},
+	
+	  currentLocation: function currentLocation() {
+	    return this._location;
+	  },
+	
+	  ajax: function ajax(name) {
+	    var req = this.requests[name],
+	        doneCallback = resolveHandler(this, name + '.done'),
+	        failCallback = resolveHandler(this, name + '.fail'),
+	        alwaysCallback = resolveHandler(this, name + '.always'),
+	        options = _.isFunction(req) ? req.apply(this, Array.prototype.slice.call(arguments, 1)) : req;
+	
+	    return this.zafClient.request(options).then(doneCallback, failCallback).then(alwaysCallback, alwaysCallback);
+	  },
+	
+	  renderTemplate: function renderTemplate(name, data) {
+	    var template = __webpack_require__(5)("./" + name + '.hdbs');
+	    return template(data);
+	  },
+	
+	  switchTo: function switchTo(name, data) {
+	    this.$('[data-main]').html(this.renderTemplate(name, data));
+	  },
+	
+	  $: function $() {
+	    var args = Array.prototype.slice.call(arguments, 0);
+	    if (!args.length) return (0, _jquery2.default)('body');
+	    return _jquery2.default.apply(_jquery2.default, arguments);
+	  }
+	};
+	
+	BaseApp.extend = function (appPrototype) {
+	  var App = function App(client, data) {
+	    BaseApp.call(this, client, data);
+	  };
+	
+	  App.prototype = _.extend({}, BaseApp.prototype, appPrototype);
+	
+	  return App;
+	};
+	
+	exports.default = BaseApp;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	module.exports = jQuery;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var map = {
+		"./layout.hdbs": 6,
+		"./testing.hdbs": 8
+	};
+	function webpackContext(req) {
+		return __webpack_require__(webpackContextResolve(req));
+	};
+	function webpackContextResolve(req) {
+		return map[req] || (function() { throw new Error("Cannot find module '" + req + "'.") }());
+	};
+	webpackContext.keys = function webpackContextKeys() {
+		return Object.keys(map);
+	};
+	webpackContext.resolve = webpackContextResolve;
+	module.exports = webpackContext;
+	webpackContext.id = 5;
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Handlebars = __webpack_require__(7);
+	function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
+	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+	    return "<header>\n  <span class=\"logo\"/>\n  <h3>"
+	    + container.escapeExpression((helpers.setting || (depth0 && depth0.setting) || helpers.helperMissing).call(depth0 != null ? depth0 : {},"name",{"name":"setting","hash":{},"data":data}))
+	    + "</h3>\n</header>\n<section data-main/>\n";
+	},"useData":true});
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = Handlebars;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Handlebars = __webpack_require__(7);
+	function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
+	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+	    var helper;
+	
+	  return "<form>\n  <div class=\"history-container "
+	    + container.escapeExpression(((helper = (helper = helpers.location || (depth0 != null ? depth0.location : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"location","hash":{},"data":data}) : helper)))
+	    + "\"></div>\n  <input type=\"text\" class=\"script\"></textarea>\n</form>\n";
+	},"useData":true});
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var helpers = {
+	  fmt: function fmt(str, formats) {
+	    var cachedFormats = formats;
+	
+	    if (!_.isArray(cachedFormats) || arguments.length > 2) {
+	      cachedFormats = new Array(arguments.length - 1);
+	
+	      for (var i = 1, l = arguments.length; i < l; i++) {
+	        cachedFormats[i - 1] = arguments[i];
+	      }
+	    }
+	
+	    // first, replace any ORDERED replacements.
+	    var idx = 0; // the current index for non-numerical replacements
+	    return str.replace(/%@([0-9]+)?/g, function (s, argIndex) {
+	      argIndex = argIndex ? parseInt(argIndex, 10) - 1 : idx++;
+	      s = cachedFormats[argIndex];
+	      if (s === null) return '(null)';
+	      if (s === undefined) return '';
+	      if (_.isFunction(s.toString)) return s.toString();
+	      return s;
+	    });
+	  }
+	};
+	
+	exports.default = helpers;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	module.exports = ZAFClient;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }
+/******/ ]);
 //# sourceMappingURL=main.js.map
