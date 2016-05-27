@@ -14,38 +14,44 @@ var format = function(value) {
   return value;
 };
 
-var CommandHistory = (function() {
-  var history = [],
-      currentCommandIndex = 0;
+class Command {
 
-  return {
-    addCommand(cmd) {
-      let time = performance.now();
-      history.push({
-        cmd,
-        time
-      });
-      currentCommandIndex = history.length;
-      return currentCommandIndex - 1;
-    },
+  constructor(cmd) {
+    this.cmd = cmd;
+    this._startTime = performance.now();
+  }
 
-    commandAt(index = 0) {
-      return history[index];
-    },
+  get elapsedTime() {
+    return performance.now() - this._startTime;
+  }
 
-    previousCommand() {
-      if (currentCommandIndex >= 0) {
-        return history[--currentCommandIndex];
-      }
-    },
+}
 
-    nextCommand() {
-      if (currentCommandIndex < history.length) {
-        return history[++currentCommandIndex];
-      }
+class CommandHistory {
+  static addCommand(cmd) {
+    this.history.push(new Command(cmd));
+    this.currentCommandIndex = this.history.length;
+  }
+
+  static commandAt(index = 0) {
+    return this.history[index];
+  }
+
+  static previousCommand() {
+    if (this.currentCommandIndex >= 0) {
+      return this.history[--this.currentCommandIndex];
     }
-  };
-}());
+  }
+
+  static nextCommand() {
+    if (this.currentCommandIndex < this.history.length) {
+      return this.history[++this.currentCommandIndex];
+    }
+  }
+}
+
+CommandHistory.history = [];
+CommandHistory.currentCommandIndex = 0;
 
 var log = (function() {
   var counter = 0;
@@ -77,12 +83,16 @@ var log = (function() {
     CommandHistory.addCommand(input);
 
     if (value instanceof Promise) {
+      let elapsedTime, cmd;
       value.then((data) => {
         let formatted = format(data);
-        let { time } = CommandHistory.commandAt(currentCount - 1);
-        let elapsedTime = performance.now() - time;
-        appendToHistory.call(this, `${currentCount}: async response (${elapsedTime}ms)`, formatted);
+        cmd = CommandHistory.commandAt(currentCount - 1);
+        appendToHistory.call(this, `${currentCount}: async response (${cmd.elapsedTime}ms)`, formatted);
         logEval(input, formatted);
+      }).catch((err) => {
+        cmd = CommandHistory.commandAt(currentCount - 1);
+        appendToHistory.call(this, `${currentCount}: async error (${cmd.elapsedTime}ms)`, formatError(err));
+        logError(input, err);
       });
       input = `async request - ${input}`;
     }
@@ -91,8 +101,12 @@ var log = (function() {
   };
 }());
 
-var logError = function(input, error) {
-  log.call(this, input, error.name + ': ' + error.message + '\n' + error.stack, 'error');
+var formatError = function(err) {
+  return `${err.name}: ${err.message}\n${err.stack}`;
+}
+
+var logError = function(input, err) {
+  log.call(this, input, formatError(err), 'error');
 };
 
 var FunctionToJson;
