@@ -84,6 +84,8 @@
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _base_app = __webpack_require__(3);
 	
 	var _base_app2 = _interopRequireDefault(_base_app);
@@ -94,12 +96,10 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
 	var UP_ARROW_KEY = 38,
 	    DOWN_ARROW_KEY = 40;
-	
-	var isThennable = function isThennable(value) {
-	  return _.isObject(value) && _.isFunction(value.then);
-	};
 	
 	var format = function format(value) {
 	  if (_.isObject(value) || _.isArray(value)) {
@@ -111,37 +111,63 @@
 	  return value;
 	};
 	
-	var CommandHistory = function () {
-	  var history = [],
-	      currentCommandIndex = 0;
+	var Command = function () {
+	  function Command(cmd) {
+	    _classCallCheck(this, Command);
 	
-	  return {
-	    addCommand: function addCommand(cmd) {
-	      var time = performance.now();
-	      history.push({
-	        cmd: cmd,
-	        time: time
-	      });
-	      currentCommandIndex = history.length;
-	      return currentCommandIndex - 1;
-	    },
-	    commandAt: function commandAt() {
+	    this.cmd = cmd;
+	    this._startTime = performance.now();
+	  }
+	
+	  _createClass(Command, [{
+	    key: 'elapsedTime',
+	    get: function get() {
+	      return performance.now() - this._startTime;
+	    }
+	  }]);
+	
+	  return Command;
+	}();
+	
+	var CommandHistory = function () {
+	  function CommandHistory() {
+	    _classCallCheck(this, CommandHistory);
+	  }
+	
+	  _createClass(CommandHistory, null, [{
+	    key: 'addCommand',
+	    value: function addCommand(cmd) {
+	      this.history.push(new Command(cmd));
+	      this.currentCommandIndex = this.history.length;
+	    }
+	  }, {
+	    key: 'commandAt',
+	    value: function commandAt() {
 	      var index = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
 	
-	      return history[index];
-	    },
-	    previousCommand: function previousCommand() {
-	      if (currentCommandIndex >= 0) {
-	        return history[--currentCommandIndex];
-	      }
-	    },
-	    nextCommand: function nextCommand() {
-	      if (currentCommandIndex < history.length) {
-	        return history[++currentCommandIndex];
+	      return this.history[index];
+	    }
+	  }, {
+	    key: 'previousCommand',
+	    value: function previousCommand() {
+	      if (this.currentCommandIndex >= 0) {
+	        return this.history[--this.currentCommandIndex];
 	      }
 	    }
-	  };
+	  }, {
+	    key: 'nextCommand',
+	    value: function nextCommand() {
+	      if (this.currentCommandIndex < this.history.length) {
+	        return this.history[++this.currentCommandIndex];
+	      }
+	    }
+	  }]);
+	
+	  return CommandHistory;
 	}();
+	
+	CommandHistory.history = [];
+	CommandHistory.currentCommandIndex = 0;
 	
 	var log = function () {
 	  var counter = 0;
@@ -174,27 +200,34 @@
 	
 	    CommandHistory.addCommand(input);
 	
-	    if (isThennable(value)) {
-	      value.then(function (data) {
-	        var formatted = format(data);
-	
-	        var _CommandHistory$comma = CommandHistory.commandAt(currentCount - 1);
-	
-	        var time = _CommandHistory$comma.time;
-	
-	        var elapsedTime = performance.now() - time;
-	        appendToHistory.call(_this, currentCount + ': async response (' + elapsedTime + 'ms)', formatted);
-	        logEval(input, formatted);
-	      });
-	      input = 'async request - ' + input;
+	    if (value instanceof Promise) {
+	      (function () {
+	        var elapsedTime = void 0,
+	            cmd = void 0;
+	        value.then(function (data) {
+	          var formatted = format(data);
+	          cmd = CommandHistory.commandAt(currentCount - 1);
+	          appendToHistory.call(_this, currentCount + ': async response (' + cmd.elapsedTime + 'ms)', formatted);
+	          logEval(input, formatted);
+	        }).catch(function (err) {
+	          cmd = CommandHistory.commandAt(currentCount - 1);
+	          appendToHistory.call(_this, currentCount + ': async error (' + cmd.elapsedTime + 'ms)', formatError(err));
+	          logError(input, err);
+	        });
+	        input = 'async request - ' + input;
+	      })();
 	    }
 	
 	    appendToHistory.apply(this, [currentCount + ': ' + input, format(value), type]);
 	  };
 	}();
 	
-	var logError = function logError(input, error) {
-	  log.call(this, input, error.name + ': ' + error.message + '\n' + error.stack, 'error');
+	var formatError = function formatError(err) {
+	  return err.name + ': ' + err.message + '\n' + err.stack;
+	};
+	
+	var logError = function logError(input, err) {
+	  log.call(this, input, formatError(err), 'error');
 	};
 	
 	var FunctionToJson;
