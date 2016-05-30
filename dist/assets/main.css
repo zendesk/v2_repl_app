@@ -1,2 +1,44 @@
-section[data-main] form,section[data-main] section{height:100%}section[data-main] .script,section[data-main] pre{font-family:Consolas,Courier,monospace;font-size:12px}section[data-main] .script{width:100%;padding:0;box-sizing:border-box}section[data-main] pre{padding:0 3px;line-height:18px;margin:2px 0;background-color:#fff;border:0}section[data-main] pre.input{color:#007cff}section[data-main] pre.error{color:red}section[data-main] pre.output{border-bottom:1px solid #eee}section[data-main] .history-container{width:100%;box-sizing:border-box;height:calc(100% - 25px);border:1px solid #ddd;margin-bottom:5px;overflow:auto}section[data-main] .history-container.new_ticket_sidebar,section[data-main] .history-container.organization_sidebar,section[data-main] .history-container.ticket_sidebar,section[data-main] .history-container.user_sidebar{height:400px}section[data-main] .history-container.top_bar{height:315px}body,html,section[data-main]{height:100%}
+section[data-main] form, section[data-main] section {
+  height: 100%; }
+
+section[data-main] pre,
+section[data-main] .script {
+  font-family: Consolas, Courier, monospace;
+  font-size: 12px; }
+
+section[data-main] .script {
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box; }
+
+section[data-main] pre {
+  padding: 0 3px;
+  line-height: 18px;
+  margin: 2px 0;
+  background-color: #fff;
+  border: 0; }
+  section[data-main] pre.input {
+    color: #007CFF; }
+  section[data-main] pre.error {
+    color: #FF0000; }
+  section[data-main] pre.output {
+    border-bottom: solid 1px #eee; }
+
+section[data-main] .history-container {
+  width: 100%;
+  box-sizing: border-box;
+  height: calc(100% - 25px);
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+  overflow: auto; }
+  section[data-main] .history-container.ticket_sidebar, section[data-main] .history-container.new_ticket_sidebar, section[data-main] .history-container.user_sidebar, section[data-main] .history-container.organization_sidebar {
+    height: 400px; }
+  section[data-main] .history-container.top_bar {
+    height: 315px; }
+
+html,
+body,
+section[data-main] {
+  height: 100%; }
+
 /*# sourceMappingURL=main.css.map*/
