@@ -84,6 +84,8 @@
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _base_app = __webpack_require__(3);
 	
 	var _base_app2 = _interopRequireDefault(_base_app);
@@ -93,6 +95,8 @@
 	var _helpers2 = _interopRequireDefault(_helpers);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var UP_ARROW_KEY = 38,
 	    DOWN_ARROW_KEY = 40;
@@ -107,29 +111,63 @@
 	  return value;
 	};
 	
+	var Command = function () {
+	  function Command(cmd) {
+	    _classCallCheck(this, Command);
+	
+	    this.cmd = cmd;
+	    this._startTime = performance.now();
+	  }
+	
+	  _createClass(Command, [{
+	    key: 'elapsedTime',
+	    get: function get() {
+	      return performance.now() - this._startTime;
+	    }
+	  }]);
+	
+	  return Command;
+	}();
+	
 	var CommandHistory = function () {
-	  var history = [],
-	      currentCommandIndex = 0;
+	  function CommandHistory() {
+	    _classCallCheck(this, CommandHistory);
+	  }
 	
-	  return {
-	    addCommand: function addCommand(cmd) {
-	      history.push(cmd);
-	      currentCommandIndex = history.length;
-	    },
+	  _createClass(CommandHistory, null, [{
+	    key: 'addCommand',
+	    value: function addCommand(cmd) {
+	      this.history.push(new Command(cmd));
+	      this.currentCommandIndex = this.history.length;
+	    }
+	  }, {
+	    key: 'commandAt',
+	    value: function commandAt() {
+	      var index = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
 	
-	    previousCommand: function previousCommand() {
-	      if (currentCommandIndex >= 0) {
-	        return history[--currentCommandIndex];
-	      }
-	    },
-	
-	    nextCommand: function nextCommand() {
-	      if (currentCommandIndex < history.length) {
-	        return history[++currentCommandIndex];
+	      return this.history[index];
+	    }
+	  }, {
+	    key: 'previousCommand',
+	    value: function previousCommand() {
+	      if (this.currentCommandIndex >= 0) {
+	        return this.history[--this.currentCommandIndex];
 	      }
 	    }
-	  };
+	  }, {
+	    key: 'nextCommand',
+	    value: function nextCommand() {
+	      if (this.currentCommandIndex < this.history.length) {
+	        return this.history[++this.currentCommandIndex];
+	      }
+	    }
+	  }]);
+	
+	  return CommandHistory;
 	}();
+	
+	CommandHistory.history = [];
+	CommandHistory.currentCommandIndex = 0;
 	
 	var log = function () {
 	  var counter = 0;
@@ -147,20 +185,49 @@
 	    }
 	  }
 	
-	  return function (input, value, type) {
+	  function appendToHistory(input, value, type) {
 	    var $historyContainer = this.$('.history-container');
 	
-	    logEval(input, value);
-	    CommandHistory.addCommand(input);
-	
-	    $historyContainer.append(this.$('<pre class="history input">').text(++counter + ': ' + input)).append(this.$('<pre class="history output">').text('> ' + value).addClass(type));
+	    $historyContainer.append(this.$('<pre class="history input">').text(input)).append(this.$('<pre class="history output">').text('> ' + value).addClass(type));
 	
 	    $historyContainer.scrollTop($historyContainer.get(0).scrollHeight);
+	  }
+	
+	  return function (input, value, type) {
+	    var _this = this;
+	
+	    var currentCount = ++counter;
+	
+	    CommandHistory.addCommand(input);
+	
+	    if (value instanceof Promise) {
+	      (function () {
+	        var elapsedTime = void 0,
+	            cmd = void 0;
+	        value.then(function (data) {
+	          var formatted = format(data);
+	          cmd = CommandHistory.commandAt(currentCount - 1);
+	          appendToHistory.call(_this, currentCount + ': async response (' + cmd.elapsedTime + 'ms)', formatted);
+	          logEval(input, formatted);
+	        }).catch(function (err) {
+	          cmd = CommandHistory.commandAt(currentCount - 1);
+	          appendToHistory.call(_this, currentCount + ': async error (' + cmd.elapsedTime + 'ms)', formatError(err));
+	          logError(input, err);
+	        });
+	        input = 'async request - ' + input;
+	      })();
+	    }
+	
+	    appendToHistory.apply(this, [currentCount + ': ' + input, format(value), type]);
 	  };
 	}();
 	
-	var logError = function logError(input, error) {
-	  log.call(this, input, error.name + ': ' + error.message + '\n' + error.stack, 'error');
+	var formatError = function formatError(err) {
+	  return err.name + ': ' + err.message + '\n' + err.stack;
+	};
+	
+	var logError = function logError(input, err) {
+	  log.call(this, input, formatError(err), 'error');
 	};
 	
 	var FunctionToJson;
@@ -217,14 +284,13 @@
 	      try {
 	
 	        var input = $script.val().trim(),
-	            value = eval(input),
-	            formatedValue = format.call(this, value);
+	            value = eval(input);
 	
 	        if (!input) {
 	          return;
 	        }
 	
-	        log.call(this, input, formatedValue);
+	        log.call(this, input, value);
 	      } catch (e) {
 	        oldConsole.error(e);
 	        logError.call(this, input, e);
@@ -238,13 +304,20 @@
 	
 	    'keydown .script': function keydownScript(e) {
 	      if (e.which === UP_ARROW_KEY) {
-	        var cmd = CommandHistory.previousCommand();
+	        var _CommandHistory$previ = CommandHistory.previousCommand();
+	
+	        var cmd = _CommandHistory$previ.cmd;
+	
 	        if (cmd) {
 	          e.preventDefault();
 	          this.$('.script').val(cmd);
 	        }
 	      } else if (e.which === DOWN_ARROW_KEY) {
-	        this.$('.script').val(CommandHistory.nextCommand() || '');
+	        var _CommandHistory$nextC = CommandHistory.nextCommand();
+	
+	        var _cmd = _CommandHistory$nextC.cmd;
+	
+	        this.$('.script').val(_cmd || '');
 	      }
 	    }
 	  }

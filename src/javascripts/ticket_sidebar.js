@@ -14,29 +14,44 @@ var format = function(value) {
   return value;
 };
 
-var CommandHistory = (function() {
-  var history = [],
-      currentCommandIndex = 0;
+class Command {
 
-  return {
-    addCommand: function(cmd) {
-      history.push(cmd);
-      currentCommandIndex = history.length;
-    },
+  constructor(cmd) {
+    this.cmd = cmd;
+    this._startTime = performance.now();
+  }
 
-    previousCommand: function() {
-      if (currentCommandIndex >= 0) {
-        return history[--currentCommandIndex];
-      }
-    },
+  get elapsedTime() {
+    return performance.now() - this._startTime;
+  }
 
-    nextCommand: function() {
-      if (currentCommandIndex < history.length) {
-        return history[++currentCommandIndex];
-      }
+}
+
+class CommandHistory {
+  static addCommand(cmd) {
+    this.history.push(new Command(cmd));
+    this.currentCommandIndex = this.history.length;
+  }
+
+  static commandAt(index = 0) {
+    return this.history[index];
+  }
+
+  static previousCommand() {
+    if (this.currentCommandIndex >= 0) {
+      return this.history[--this.currentCommandIndex];
     }
-  };
-}());
+  }
+
+  static nextCommand() {
+    if (this.currentCommandIndex < this.history.length) {
+      return this.history[++this.currentCommandIndex];
+    }
+  }
+}
+
+CommandHistory.history = [];
+CommandHistory.currentCommandIndex = 0;
 
 var log = (function() {
   var counter = 0;
@@ -50,24 +65,48 @@ var log = (function() {
     }
   }
 
-  return function(input, value, type) {
+  function appendToHistory(input, value, type) {
     var $historyContainer = this.$('.history-container');
 
-    logEval(input, value);
-    CommandHistory.addCommand(input);
-
     $historyContainer.append(
-      this.$('<pre class="history input">').text(++counter + ': ' + input)
+      this.$('<pre class="history input">').text(input)
     ).append(
-      this.$('<pre class="history output">').text('> ' + value).addClass(type)
+      this.$('<pre class="history output">').text(`> ${value}`).addClass(type)
     );
 
     $historyContainer.scrollTop($historyContainer.get(0).scrollHeight);
+  }
+
+  return function(input, value, type) {
+    let currentCount = ++counter;
+
+    CommandHistory.addCommand(input);
+
+    if (value instanceof Promise) {
+      let elapsedTime, cmd;
+      value.then((data) => {
+        let formatted = format(data);
+        cmd = CommandHistory.commandAt(currentCount - 1);
+        appendToHistory.call(this, `${currentCount}: async response (${cmd.elapsedTime}ms)`, formatted);
+        logEval(input, formatted);
+      }).catch((err) => {
+        cmd = CommandHistory.commandAt(currentCount - 1);
+        appendToHistory.call(this, `${currentCount}: async error (${cmd.elapsedTime}ms)`, formatError(err));
+        logError(input, err);
+      });
+      input = `async request - ${input}`;
+    }
+
+    appendToHistory.apply(this, [`${currentCount}: ${input}`, format(value), type]);
   };
 }());
 
-var logError = function(input, error) {
-  log.call(this, input, error.name + ': ' + error.message + '\n' + error.stack, 'error');
+var formatError = function(err) {
+  return `${err.name}: ${err.message}\n${err.stack}`;
+}
+
+var logError = function(input, err) {
+  log.call(this, input, formatError(err), 'error');
 };
 
 var FunctionToJson;
@@ -122,12 +161,11 @@ var App = {
       try {
 
         var input = $script.val().trim(),
-            value = eval(input),
-            formatedValue = format.call(this, value);
+            value = eval(input);
 
         if (!input) { return; }
 
-        log.call(this, input, formatedValue);
+        log.call(this, input, value);
       } catch(e) {
         oldConsole.error(e);
         logError.call(this, input, e);
@@ -141,13 +179,14 @@ var App = {
 
     'keydown .script': function(e) {
       if (e.which === UP_ARROW_KEY) {
-        var cmd = CommandHistory.previousCommand();
+        let { cmd } = CommandHistory.previousCommand();
         if (cmd) {
           e.preventDefault();
           this.$('.script').val(cmd);
         }
       } else if (e.which === DOWN_ARROW_KEY) {
-        this.$('.script').val(CommandHistory.nextCommand() || '');
+        let { cmd } = CommandHistory.nextCommand();
+        this.$('.script').val(cmd || '');
       }
     }
   }
