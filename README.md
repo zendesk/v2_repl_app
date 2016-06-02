@@ -9,7 +9,7 @@ We are often active during daytime hours on the east coast of Australia (UTC+10)
 
 We have a Slack channel called `vegemite` accessible to all Zendesk employees. The broader developer community is encouraged to get in
 touch with us by using the `zendesk-appdevelopers` Slack account, or by contacting us via https://support.zendesk.com. You can get access
-to the Slack channel by signing up for [App Framework V2 beta](goo.gl/forms/rnHRGIUj4a).
+to the Slack channel by signing up for [App Framework V2 beta](https://goo.gl/forms/rnHRGIUj4a).
 
 ## Getting Started
 
