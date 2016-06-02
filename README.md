@@ -7,7 +7,7 @@ An interactive programming environment for ZAF SDK v2 developers.
 This repo is maintained by @zendesk/vegemite. You can contact us using that Github handle on issues or pull requests in this repo.
 We are often active during daytime hours on the east coast of Australia (UTC+10).
 
-We have a Slack channel called `vegemite` accessible to all Zendesk employees. The broader developer community is encouraged to get in
+We have a Slack channel called `apps` accessible to all Zendesk employees. The broader developer community is encouraged to get in
 touch with us by using the `zendesk-appdevelopers` Slack account, or by contacting us via https://support.zendesk.com. You can get access
 to the Slack channel by signing up for [App Framework V2 beta](https://goo.gl/forms/rnHRGIUj4a).
 
