@@ -1,4 +1,4 @@
-# iFrame REPL App
+# SDK REPL App
 
 ## Description
 An interactive programming environment for ZAF SDK v2 developers.
