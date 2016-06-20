@@ -82,7 +82,7 @@ var log = (function() {
 
     CommandHistory.addCommand(input);
 
-    if (value instanceof Promise) {
+    if (typeof value.then === "function") {
       let elapsedTime, cmd;
       value.then((data) => {
         let formatted = format(data);
