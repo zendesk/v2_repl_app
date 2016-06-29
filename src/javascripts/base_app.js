@@ -30,7 +30,7 @@ function BaseApp(zafClient, data) {
   bindEvents(this);
 
   if (this.defaultState) {
-    this.switchTo(this.defaultState);
+    this.switchTo(this.defaultState, { location: this._location });
   }
   resolveHandler(this, 'app.created')();
 }

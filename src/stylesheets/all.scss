@@ -1,6 +1,16 @@
 section[data-main] {
   form, section {
     height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+
+    &.top_bar {
+      padding: 5px;
+
+      .history-container {
+        height: calc(100% - 30px);
+      }
+    }
   }
 
   pre,
@@ -12,6 +22,8 @@ section[data-main] {
   .script {
     width: 100%;
     padding: 0;
+    margin-top: 5px;
+    margin-bottom: 0;
     box-sizing: border-box;
   }
 
@@ -40,18 +52,6 @@ section[data-main] {
     box-sizing: border-box;
     height: calc(100% - 25px);
     border: 1px solid #ddd;
-    margin-bottom: 5px;
     overflow: auto;
-
-    &.ticket_sidebar,
-    &.new_ticket_sidebar,
-    &.user_sidebar,
-    &.organization_sidebar {
-      height: 400px;
-    }
-
-    &.top_bar {
-      height: 315px;
-    }
   }
 }

@@ -54,9 +54,9 @@
 
 	'use strict';
 	
-	var _ticket_sidebar = __webpack_require__(2);
+	var _app = __webpack_require__(2);
 	
-	var _ticket_sidebar2 = _interopRequireDefault(_ticket_sidebar);
+	var _app2 = _interopRequireDefault(_app);
 	
 	var _zendesk_app_framework_sdk = __webpack_require__(10);
 	
@@ -69,9 +69,15 @@
 	window.zafClient = client;
 	
 	client.on('app.registered', function (data) {
-	  if (data.context.location === 'ticket_sidebar') {
-	    new _ticket_sidebar2.default(client, data);
+	  var height = '100%';
+	
+	  new _app2.default(client, data);
+	
+	  if (/_sidebar$/.test(data.context.location)) {
+	    height = '500px';
 	  }
+	
+	  client.invoke('resize', { height: height });
 	});
 
 /***/ },
@@ -100,6 +106,10 @@
 	
 	var UP_ARROW_KEY = 38,
 	    DOWN_ARROW_KEY = 40;
+	
+	var isThennable = function isThennable(value) {
+	  return _.isObject(value) && _.isFunction(value.then);
+	};
 	
 	var format = function format(value) {
 	  if (_.isObject(value) || _.isArray(value)) {
@@ -200,7 +210,7 @@
 	
 	    CommandHistory.addCommand(input);
 	
-	    if (value instanceof Promise) {
+	    if (isThennable(value)) {
 	      (function () {
 	        var elapsedTime = void 0,
 	            cmd = void 0;
@@ -379,7 +389,7 @@
 	  bindEvents(this);
 	
 	  if (this.defaultState) {
-	    this.switchTo(this.defaultState);
+	    this.switchTo(this.defaultState, { location: this._location });
 	  }
 	  resolveHandler(this, 'app.created')();
 	}
@@ -443,7 +453,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./layout.hdbs": 6,
 		"./testing.hdbs": 8
 	};
 	function webpackContext(req) {
@@ -461,18 +470,7 @@
 
 
 /***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Handlebars = __webpack_require__(7);
-	function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
-	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-	    return "<header>\n  <span class=\"logo\"/>\n  <h3>"
-	    + container.escapeExpression((helpers.setting || (depth0 && depth0.setting) || helpers.helperMissing).call(depth0 != null ? depth0 : {},"name",{"name":"setting","hash":{},"data":data}))
-	    + "</h3>\n</header>\n<section data-main/>\n";
-	},"useData":true});
-
-/***/ },
+/* 6 */,
 /* 7 */
 /***/ function(module, exports) {
 
@@ -487,9 +485,9 @@
 	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
 	    var helper;
 	
-	  return "<form>\n  <div class=\"history-container "
+	  return "<form class=\""
 	    + container.escapeExpression(((helper = (helper = helpers.location || (depth0 != null ? depth0.location : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"location","hash":{},"data":data}) : helper)))
-	    + "\"></div>\n  <input type=\"text\" class=\"script\"></textarea>\n</form>\n";
+	    + "\">\n  <div class=\"history-container\"></div>\n  <input type=\"text\" class=\"script\"></textarea>\n</form>\n";
 	},"useData":true});
 
 /***/ },
