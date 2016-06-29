@@ -1,5 +1,11 @@
 section[data-main] form, section[data-main] section {
-  height: 100%; }
+  height: 100%;
+  margin: 0;
+  box-sizing: border-box; }
+  section[data-main] form.top_bar, section[data-main] section.top_bar {
+    padding: 5px; }
+    section[data-main] form.top_bar .history-container, section[data-main] section.top_bar .history-container {
+      height: calc(100% - 30px); }
 
 section[data-main] pre,
 section[data-main] .script {
@@ -9,6 +15,8 @@ section[data-main] .script {
 section[data-main] .script {
   width: 100%;
   padding: 0;
+  margin-top: 5px;
+  margin-bottom: 0;
   box-sizing: border-box; }
 
 section[data-main] pre {
@@ -29,12 +37,7 @@ section[data-main] .history-container {
   box-sizing: border-box;
   height: calc(100% - 25px);
   border: 1px solid #ddd;
-  margin-bottom: 5px;
   overflow: auto; }
-  section[data-main] .history-container.ticket_sidebar, section[data-main] .history-container.new_ticket_sidebar, section[data-main] .history-container.user_sidebar, section[data-main] .history-container.organization_sidebar {
-    height: 400px; }
-  section[data-main] .history-container.top_bar {
-    height: 315px; }
 
 html,
 body,

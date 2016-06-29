@@ -1,4 +1,4 @@
-<form>
-  <div class="history-container {{location}}"></div>
+<form class="{{location}}">
+  <div class="history-container"></div>
   <input type="text" class="script"></textarea>
 </form>
