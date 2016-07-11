@@ -96,8 +96,7 @@ var log = (function() {
         logEval(input, formatted);
       }).catch((err) => {
         cmd = CommandHistory.commandAt(currentCount - 1);
-        appendToHistory.call(this, `${currentCount}: async error (${cmd.elapsedTime}ms)`, formatError(err));
-        logError(input, err);
+        appendToHistory.call(this, `${currentCount}: async error (${cmd.elapsedTime}ms)`, formatError(err), 'error');
       });
       input = `async request - ${input}`;
     }
