@@ -183,14 +183,14 @@ var App = {
 
     'keydown .script': function(e) {
       if (e.which === UP_ARROW_KEY) {
-        let { cmd } = CommandHistory.previousCommand();
-        if (cmd) {
+        let command = CommandHistory.previousCommand();
+        if (command) {
           e.preventDefault();
-          this.$('.script').val(cmd);
+          this.$('.script').val(command.cmd);
         }
       } else if (e.which === DOWN_ARROW_KEY) {
-        let { cmd } = CommandHistory.nextCommand();
-        this.$('.script').val(cmd || '');
+        let command = CommandHistory.nextCommand();
+        this.$('.script').val(command && command.cmd || '');
       }
     }
   }
