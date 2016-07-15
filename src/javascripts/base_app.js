@@ -28,11 +28,12 @@ function BaseApp(zafClient, data) {
   this._location = data.context.location;
   this.zafClient = zafClient;
   bindEvents(this);
-
+  let evt = { firstLoad: true };
   if (this.defaultState) {
     this.switchTo(this.defaultState, { location: this._location });
   }
   resolveHandler(this, 'app.created')();
+  resolveHandler(this, 'app.activated')(evt, evt);
 }
 
 BaseApp.prototype = {
