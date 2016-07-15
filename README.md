@@ -15,8 +15,6 @@ to the Slack channel by signing up for [App Framework V2 beta](https://goo.gl/fo
 
 ### Installing the app into a Zendesk account
 
-This app can be installed from the apps marketplace by searching for 'iframe REPL'.
-
 You can also upload it as a private app by running `zat create --path=./dist` (using the [zendesk_apps_tools](https://rubygems.org/gems/zendesk_apps_tools))
 
 ### Developing a change to the app
