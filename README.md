@@ -37,6 +37,15 @@ To run the app, if you installed the optional dependencies you can run `nf start
 If you don't have `foreman`, run `zat server --path=./dist` and `webpack --watch`.
 If you didn't install `webpack` globally, you can run it by `node_modules/.bin/webpack --watch`.
 
+#### Building the app
+To build the app for uploading into a Zendesk account, run:
+```
+npm run build
+zat package --path=./dist
+```
+
+Alternatively, you can use [ZAT](https://developer.zendesk.com/apps/docs/agent/tools) to create and update the app directly to your account via the API.
+
 ## Testing
 This app is designed for testing the results of various Zendesk App Framework APIs. From within the app, you can run test commands
 like `zafClient.get('ticket.subject')`.
