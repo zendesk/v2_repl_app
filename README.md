@@ -46,7 +46,7 @@ npm run build
 zat package --path=./dist
 ```
 
-Alternatively, you can use ZAT to create and update the app directly to your account via the API.
+Alternatively, you can use [ZAT](https://developer.zendesk.com/apps/docs/agent/tools) to create and update the app directly to your account via the API.
 
 ## Testing
 This app is designed for testing the results of various Zendesk App Framework APIs. From within the app, you can run test commands
