@@ -4,7 +4,7 @@
 An interactive programming environment for ZAF SDK v2 developers.
 
 ## Owners
-This repo is maintained by @zendesk/vegemite. You can contact us using that Github handle on issues or pull requests in this repo.
+This repo is maintained by @zendesk/vegemite. You can contact us using that Github handle on issues or pull requests. If you are not able to use that team handle you can mention recent contributors from [here](https://github.com/zendesk/sdk_repl_app/graphs/contributors).
 We are often active during daytime hours on the east coast of Australia (UTC+10).
 
 We have a Slack channel called `apps` accessible to all Zendesk employees. The broader developer community is encouraged to get in
