@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	module.exports = __webpack_require__(11);
+	module.exports = __webpack_require__(10);
 
 
 /***/ },
@@ -58,7 +58,7 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _zendesk_app_framework_sdk = __webpack_require__(10);
+	var _zendesk_app_framework_sdk = __webpack_require__(9);
 	
 	var _zendesk_app_framework_sdk2 = _interopRequireDefault(_zendesk_app_framework_sdk);
 	
@@ -96,7 +96,7 @@
 	
 	var _base_app2 = _interopRequireDefault(_base_app);
 	
-	var _helpers = __webpack_require__(9);
+	var _helpers = __webpack_require__(8);
 	
 	var _helpers2 = _interopRequireDefault(_helpers);
 	
@@ -185,7 +185,7 @@
 	  function logEval(input, value) {
 	    if (console && console.info) {
 	      if (console.group) {
-	        console.group('REPL App');
+	        console.group('SDK REPL App');
 	      }
 	      console.info("Eval: ", input);
 	      console.info("Result: ", value);
@@ -221,8 +221,7 @@
 	          logEval(input, formatted);
 	        }).catch(function (err) {
 	          cmd = CommandHistory.commandAt(currentCount - 1);
-	          appendToHistory.call(_this, currentCount + ': async error (' + cmd.elapsedTime + 'ms)', formatError(err));
-	          logError(input, err);
+	          appendToHistory.call(_this, currentCount + ': async error (' + cmd.elapsedTime + 'ms)', formatError(err), 'error');
 	        });
 	        input = 'async request - ' + input;
 	      })();
@@ -259,7 +258,7 @@
 	      return;
 	    }
 	    var args = Array.prototype.slice.call(arguments, 2);
-	    var message = _helpers2.default.fmt("REPL app (%@) received: '%@'", location, evt);
+	    var message = _helpers2.default.fmt("SDK REPL app (%@) received: '%@'", location, evt);
 	    info = info || Function.prototype.bind.call(console.info, console); // so we can use apply in IE 9 (http://stackoverflow.com/a/5539378)
 	    info.apply(console, [message].concat(args));
 	  };
@@ -314,26 +313,20 @@
 	
 	    'keydown .script': function keydownScript(e) {
 	      if (e.which === UP_ARROW_KEY) {
-	        var _CommandHistory$previ = CommandHistory.previousCommand();
-	
-	        var cmd = _CommandHistory$previ.cmd;
-	
-	        if (cmd) {
+	        var command = CommandHistory.previousCommand();
+	        if (command) {
 	          e.preventDefault();
-	          this.$('.script').val(cmd);
+	          this.$('.script').val(command.cmd);
 	        }
 	      } else if (e.which === DOWN_ARROW_KEY) {
-	        var _CommandHistory$nextC = CommandHistory.nextCommand();
-	
-	        var _cmd = _CommandHistory$nextC.cmd;
-	
-	        this.$('.script').val(_cmd || '');
+	        var _command = CommandHistory.nextCommand();
+	        this.$('.script').val(_command && _command.cmd || '');
 	      }
 	    }
 	  }
 	};
 	
-	['app.created', 'app.activated', 'app.deactivated', 'pane.activated', 'pane.deactivated', 'app.willDestroy', '*.changed', 'app.route.changed', 'ticket.submit.start', 'ticket.submit.done', 'ticket.submit.fail', 'ticket.submit.always', 'ticket.viewers.changed', 'ticket.updated', 'ticket.save', 'ticket.saved'].forEach(function (key) {
+	['app.created', 'app.activated', 'app.deactivated', 'pane.activated', 'pane.deactivated', 'app.willDestroy', '*.changed', 'app.route.changed', 'ticket.submit.start', 'ticket.submit.done', 'ticket.submit.fail', 'ticket.submit.always', 'ticket.viewers.changed', 'ticket.updated', 'ticket.save', 'ticket.saved', 'notification.repl', 'message.repl', 'window.resize', 'window.scroll'].forEach(function (key) {
 	  App.events[key] = function () {
 	    logEvent(this.currentLocation(), key, arguments);
 	  };
@@ -387,11 +380,12 @@
 	  this._location = data.context.location;
 	  this.zafClient = zafClient;
 	  bindEvents(this);
-	
+	  var evt = { firstLoad: true };
 	  if (this.defaultState) {
 	    this.switchTo(this.defaultState, { location: this._location });
 	  }
 	  resolveHandler(this, 'app.created')();
+	  resolveHandler(this, 'app.activated')(evt, evt);
 	}
 	
 	BaseApp.prototype = {
@@ -453,7 +447,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./testing.hdbs": 8
+		"./testing.hdbs": 6
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -470,14 +464,7 @@
 
 
 /***/ },
-/* 6 */,
-/* 7 */
-/***/ function(module, exports) {
-
-	module.exports = Handlebars;
-
-/***/ },
-/* 8 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Handlebars = __webpack_require__(7);
@@ -491,7 +478,13 @@
 	},"useData":true});
 
 /***/ },
-/* 9 */
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = Handlebars;
+
+/***/ },
+/* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -527,13 +520,13 @@
 	exports.default = helpers;
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = ZAFClient;
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

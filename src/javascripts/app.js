@@ -212,7 +212,11 @@ var App = {
   'ticket.viewers.changed',
   'ticket.updated',
   'ticket.save',
-  'ticket.saved'
+  'ticket.saved',
+  'notification.repl',
+  'message.repl',
+  'window.resize',
+  'window.scroll'
 ].forEach(function(key) {
   App.events[key] = function() {
     logEvent(this.currentLocation(), key, arguments);
