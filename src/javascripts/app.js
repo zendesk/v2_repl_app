@@ -216,7 +216,11 @@ var App = {
   'notification.repl',
   'message.repl',
   'window.resize',
-  'window.scroll'
+  'window.scroll',
+  'channel.chat.started',
+  'channel.chat.ended',
+  'channel.message.received',
+  'channel.message.sent'
 ].forEach(function(key) {
   App.events[key] = function() {
     logEvent(this.currentLocation(), key, arguments);
