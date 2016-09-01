@@ -217,8 +217,9 @@ var App = {
   'message.repl',
   'window.resize',
   'window.scroll',
-  'channel.chat.started',
-  'channel.chat.ended',
+  'channel.chat.start',
+  'channel.start.end',
+  'channel.ticket.created',
   'channel.message.received',
   'channel.message.sent'
 ].forEach(function(key) {
