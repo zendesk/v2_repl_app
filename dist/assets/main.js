@@ -326,7 +326,7 @@
 	  }
 	};
 	
-	['app.created', 'app.activated', 'app.deactivated', 'pane.activated', 'pane.deactivated', 'app.willDestroy', '*.changed', 'app.route.changed', 'ticket.submit.start', 'ticket.submit.done', 'ticket.submit.fail', 'ticket.submit.always', 'ticket.viewers.changed', 'ticket.updated', 'ticket.save', 'ticket.saved', 'notification.repl', 'message.repl', 'window.resize', 'window.scroll'].forEach(function (key) {
+	['app.created', 'app.activated', 'app.deactivated', 'pane.activated', 'pane.deactivated', 'app.willDestroy', '*.changed', 'app.route.changed', 'ticket.submit.start', 'ticket.submit.done', 'ticket.submit.fail', 'ticket.submit.always', 'ticket.viewers.changed', 'ticket.updated', 'ticket.save', 'ticket.saved', 'notification.repl', 'message.repl', 'window.resize', 'window.scroll', 'channel.chat.started', 'channel.chat.ended', 'channel.message.received', 'channel.message.sent'].forEach(function (key) {
 	  App.events[key] = function () {
 	    logEvent(this.currentLocation(), key, arguments);
 	  };
