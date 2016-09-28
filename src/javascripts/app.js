@@ -205,6 +205,7 @@ var App = {
   'app.willDestroy',
   '*.changed',
   'app.route.changed',
+  'modal.close',
   'ticket.submit.start',
   'ticket.submit.done',
   'ticket.submit.fail',
