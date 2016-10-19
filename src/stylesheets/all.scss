@@ -4,7 +4,11 @@ section[data-main] {
     margin: 0;
     box-sizing: border-box;
 
-    &.top_bar {
+    &.app_nav_bar {
+      padding: 10px;
+    }
+
+    &.app_top_bar {
       padding: 5px;
 
       .history-container {

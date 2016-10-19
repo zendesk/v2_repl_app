@@ -6,11 +6,12 @@ var client = ZAFClient.init();
 window.zafClient = client;
 
 client.on('app.registered', function(data) {
-  var height = '100%';
+  var height = '100%',
+      location = data.context.location;
 
   new App(client, data);
 
-  if (/_sidebar$/.test(data.context.location)) {
+  if (location === 'top_bar' || /_sidebar$/.test(location)) {
     height = '500px';
   }
 
