@@ -36,6 +36,7 @@ class CommandHistory {
   static addCommand(cmd) {
     this.history.push(new Command(cmd));
     this.currentCommandIndex = this.history.length;
+    this.saveHistory();
   }
 
   static commandAt(index = 0) {
@@ -53,10 +54,22 @@ class CommandHistory {
       return this.history[++this.currentCommandIndex];
     }
   }
+
+  static loadHistory() {
+    try {
+      this.history = JSON.parse(localStorage.getItem('commandHistory')) || [];
+    } catch(e) {
+      this.history = [];
+    }
+    this.currentCommandIndex = this.history.length;
+  }
+
+  static saveHistory() {
+    localStorage.setItem('commandHistory', JSON.stringify(this.history));
+  }
 }
 
-CommandHistory.history = [];
-CommandHistory.currentCommandIndex = 0;
+CommandHistory.loadHistory();
 
 var log = (function() {
   var counter = 0;
