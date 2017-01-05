@@ -1,7 +1,7 @@
 {
-  "name": "iframe_app_template",
+  "name": "sdk_repl_app",
   "version": "0.0.1",
-  "description": "A template for developers to build iframe only apps",
+  "description": "An interactive programming environment for ZAF SDK v2 developers",
   "repository": {
     "type": "git",
     "url": "https://github.com/zendesk/iframe_app_template.git"
