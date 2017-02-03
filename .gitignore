@@ -37,3 +37,6 @@ dist/tmp
 
 # zat
 dist/.zat*
+
+# yarn
+yarn.lock
