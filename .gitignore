@@ -34,7 +34,6 @@ node_modules
 
 # webpack
 dist/tmp
-dist/assets/main.*
 
 # zat
 dist/.zat*
