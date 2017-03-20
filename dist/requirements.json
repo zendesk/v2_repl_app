@@ -1,0 +1,15 @@
+{
+  "ticket_fields": {
+    "repl_ticket_field": {
+      "type": "text",
+      "title": "REPL Custom Field"
+    }
+  },
+  "user_fields": {
+    "repl_user_field": {
+      "key": "repl_user_field",
+      "type": "text",
+      "title": "REPL Custom Field"
+    }
+  }
+}
