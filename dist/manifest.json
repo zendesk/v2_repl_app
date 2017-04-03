@@ -8,16 +8,17 @@
   "defaultLocale": "en",
   "private": false,
   "location": {
-    "zendesk": {
+    "support": {
       "background": "assets/iframe.html",
       "nav_bar": "assets/iframe.html",
       "top_bar": "assets/iframe.html",
       "ticket_sidebar": "assets/iframe.html",
       "new_ticket_sidebar": "assets/iframe.html",
       "user_sidebar": "assets/iframe.html",
-      "organization_sidebar": "assets/iframe.html"
+      "organization_sidebar": "assets/iframe.html",
+      "ticket_editor": "assets/iframe.html"
     },
-    "zopim": {
+    "chat": {
       "chat_sidebar": "assets/iframe.html"
     }
   },
