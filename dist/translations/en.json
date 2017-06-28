@@ -4,7 +4,7 @@
       "title": "Name for App: v2 REPL",
       "value": "v2 REPL"
     },
-    "description": {
+    "short_description": {
       "title": "Description for App: v2 REPL",
       "value": "An interactive programming environment for ZAF SDK v2 developers"
     },
