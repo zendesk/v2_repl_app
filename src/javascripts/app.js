@@ -232,7 +232,7 @@ var App = {
   'window.resize',
   'window.scroll',
   'channel.chat.start',
-  'channel.start.end',
+  'channel.chat.end',
   'channel.ticket.created',
   'channel.message.received',
   'channel.message.sent'
