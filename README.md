@@ -1,4 +1,6 @@
 # SDK REPL App
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fzendesk%2Fsdk_repl_app.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fzendesk%2Fsdk_repl_app?ref=badge_shield)
+
 
 ## Description
 An interactive programming environment for ZAF SDK v2 developers.
@@ -66,3 +68,7 @@ API documentation will one day be found at https://developer.zendesk.com/apps/do
 
 ## Project Structure
 The app is compiled by webpack. The artifact that can be uploaded to Zendesk (or served with ZAT) is in the `dist/` folder.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fzendesk%2Fsdk_repl_app.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fzendesk%2Fsdk_repl_app?ref=badge_large)
