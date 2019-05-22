@@ -1,20 +1,40 @@
 {
   "app": {
-    "name": {
-      "title": "Name for App: v2 REPL",
-      "value": "v2 REPL"
+    "support": {
+      "name": {
+        "title": "Name for App: v2 REPL",
+        "value": "v2 REPL for Zendesk Support"
+      },
+      "short_description": {
+        "title": "Description for App: v2 REPL",
+        "value": "An interactive API console for Zendesk Apps framework developers"
+      },
+      "long_description": {
+        "title": "Long Description for App: v2 REPL",
+        "value": "Try out Framework v2 APIs in an interactive console\n\n* Useful for debugging\n* Experiment before you implement\n"
+      },
+      "installation_instructions": {
+        "title": "Installation Instructions for App: v2 REPL",
+        "value": ""
+      }  
     },
-    "short_description": {
-      "title": "Description for App: v2 REPL",
-      "value": "An interactive programming environment for ZAF SDK v2 developers"
-    },
-    "long_description": {
-      "title": "Long Description for App: v2 REPL",
-      "value": "A Read-Eval-Print-Loop for App Framework v2 developers\n\n* Try out Framework v2 APIs in an interactive console\n* Useful for debugging\n* Experiment before you implement\n"
-    },
-    "installation_instructions": {
-      "title": "Installation Instructions for App: v2 REPL",
-      "value": "Install it and go crazy!"
+    "chat": {
+      "name": {
+        "title": "Name for App: v2 REPL",
+        "value": "v2 REPL for Zendesk Chat"
+      },
+      "short_description": {
+        "title": "Description for App: v2 REPL",
+        "value": "An interactive API console for Zendesk Apps framework developers"
+      },
+      "long_description": {
+        "title": "Long Description for App: v2 REPL",
+        "value": "Try out Framework v2 APIs in an interactive console\n\n* Useful for debugging\n* Experiment before you implement\n"
+      },
+      "installation_instructions": {
+        "title": "Installation Instructions for App: v2 REPL",
+        "value": ""
+      }  
     },
     "package": "app_repl_v2"
   },
