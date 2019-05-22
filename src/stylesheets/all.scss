@@ -21,6 +21,7 @@ section[data-main] {
   .script {
     font-family: Consolas, Courier, monospace;
     font-size: 12px;
+    color: #2F3941;
   }
 
   .script {
@@ -39,15 +40,15 @@ section[data-main] {
     border: 0;
 
     &.input {
-      color: #007CFF;
+      color: #337FBD;
     }
 
     &.error {
-      color: #FF0000;
+      color: #D93F4C;
     }
 
     &.output {
-      border-bottom: solid 1px #eee;
+      border-bottom: solid 1px #E9EBED;
     }
   }
 
@@ -55,7 +56,7 @@ section[data-main] {
     width: 100%;
     box-sizing: border-box;
     height: calc(100% - 25px);
-    border: 1px solid #ddd;
+    border: 1px solid #D8DCDE;
     overflow: auto;
   }
 }

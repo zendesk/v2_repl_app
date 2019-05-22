@@ -1,8 +1,10 @@
 /* eslint-env node */
 
 // var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var extractStyles = new ExtractTextPlugin('main.css');
+const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   progress: true,
@@ -23,10 +25,11 @@ module.exports = {
       }
     ],
     loaders: [
-      {
+      /*{
         test: /\.scss$/,
         loader: extractStyles.extract("style", ["css?sourceMap", "sass?sourceMap"])
-      },
+      }
+      ,*/
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -55,9 +58,16 @@ module.exports = {
     moment: 'moment',
     zendesk_app_framework_sdk: 'ZAFClient'
   },
-  debug: true,
   devtool: 'source-map',
   plugins: [
-    extractStyles
+    // Empties the dist folder
+    new CleanWebpackPlugin(['dist/*']),
+
+    // Copy over some files
+    new CopyWebpackPlugin([
+      { from: 'src/manifest.json', to: '../', flatten: true },
+      { from: 'src/images/*', to: '.', flatten: true },
+      { from: 'src/templates/*', to: '.', flatten: true }
+    ])
   ]
 };
