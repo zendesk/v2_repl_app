@@ -18,7 +18,7 @@ We have a Slack channel called `apps` accessible to all Zendesk employees. The b
 touch with us by using the `zendesk-platform` Slack workspace, or by contacting us via https://support.zendesk.com. You can get access
 to the Slack channel by sending a request to developersupport@zendesk.com
 
-The complete app can be downloaded from the [Zendesk Marketplace](https://www.zendesk.com/apps/support/v2-repl/)
+The complete app can be downloaded from the [Zendesk Marketplace](https://www.zendesk.com/apps/support/v2-repl/).
 
 ### Running Locally
 
