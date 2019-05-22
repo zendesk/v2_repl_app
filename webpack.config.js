@@ -50,10 +50,9 @@ module.exports = {
       { from: 'src/manifest.json', to: '../', flatten: true },
       { from: 'src/templates/*', to: '.', flatten: true },
       // zendesk chat image assets
-      { from: 'src/images/logo-small.png', to: './chat', flatten: true },
-      { from: 'src/images/logo.png', to: './chat', flatten: true },
+      { from: 'src/images/chat/*', to: './chat', flatten: true },
       // zendesk support image assets
-      { from: 'src/images/*', to: './support', flatten: true },
+      { from: 'src/images/support/*', to: './support', flatten: true },
       // copy translations/en.json
       { from: 'src/translations', to: '../translations', flatten: true }
     ]),
