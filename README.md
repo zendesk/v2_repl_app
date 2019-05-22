@@ -1,5 +1,5 @@
 # v2 REPL App
-[![Production version](https://samson.zende.sk/projects/sdk_repl_app/stages/production.svg?token=84457be797bb7a1e00d1f57575d5112a)]
+![Production version](https://samson.zende.sk/projects/sdk_repl_app/stages/production.svg?token=84457be797bb7a1e00d1f57575d5112a)]
 
 
 ## Description
@@ -7,6 +7,7 @@ An interactive programming environment for ZAF v2 developers.
 
 ## Dependencies
 [Zendesk apps tools](https://github.com/zendesk/zendesk_apps_tools)
+
 NodeJS >= 8.1.0
 
 ## Owners
