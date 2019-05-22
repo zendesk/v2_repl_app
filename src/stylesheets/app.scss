@@ -19,8 +19,10 @@ section[data-main] {
 
   pre,
   .script {
-    font-family: Consolas, Courier, monospace;
+    font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace;
+    font-feature-settings: "kern";
     font-size: 12px;
+    text-rendering: optimizeLegibility;
     color: #2F3941;
   }
 
