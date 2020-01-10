@@ -1,16 +1,16 @@
-import App from './app';
-import ZAFClient from 'zendesk_app_framework_sdk';
+import App from './app'
+import ZAFClient from 'zendesk_app_framework_sdk'
 
-var client = ZAFClient.init();
+var client = ZAFClient.init()
 
-window.zafClient = client;
+window.zafClient = client
 
-client.on('app.registered', function(data) {
-  var location = data.context.location;
+client.on('app.registered', function (data) {
+  var location = data.context.location
 
-  new App(client, data);
+  new App(client, data)
 
   if (location === 'top_bar' || /_sidebar$/.test(location)) {
-    client.invoke('resize', { height: '500px' });
+    client.invoke('resize', { height: '500px' })
   }
-});
+})
