@@ -1,6 +1,10 @@
 import BaseApp from './base_app'
 import helpers from './helpers'
 
+import hljs from 'highlight.js/lib/highlight.js'
+import 'highlight.js/styles/github.css'
+hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
+
 var UP_ARROW_KEY = 38
 var DOWN_ARROW_KEY = 40
 
@@ -87,7 +91,7 @@ var log = (function () {
     $historyContainer.append(
       this.$('<pre class="history input">').text(input)
     ).append(
-      this.$('<pre class="history output">').text(`> ${value}`).addClass(type)
+      this.$('<pre class="history output">').html('> ' + hljs.highlight('json', value).value).addClass(type)
     )
 
     $historyContainer.scrollTop($historyContainer.get(0).scrollHeight)
