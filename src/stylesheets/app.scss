@@ -1,68 +1,68 @@
+@import '@zendeskgarden/css-bedrock';
+@import '@zendeskgarden/css-forms';
+
 section[data-main] {
-  form, section {
-    height: 100%;
-    margin: 0;
-    box-sizing: border-box;
-
-    &.app_nav_bar {
-      padding: 10px;
-    }
-
-    &.app_top_bar {
-      padding: 5px;
-
-      .history-container {
-        height: calc(100% - 30px);
-      }
-    }
-  }
-
-  pre,
-  .script {
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    font-feature-settings: "kern";
-    font-size: 12px;
-    text-rendering: optimizeLegibility;
-    color: #2F3941;
-  }
-
-  .script {
-    width: 100%;
-    padding: 0;
-    margin-top: 5px;
-    margin-bottom: 0;
-    box-sizing: border-box;
-  }
-
-  pre {
-    padding: 0 3px;
-    line-height: 18px;
-    margin: 2px 0;
-    background-color: #fff;
-    border: 0;
-
-    &.input {
-      color: #337FBD;
-    }
-
-    &.error {
-      color: #D93F4C;
-    }
-
-    &.output {
-      border-bottom: solid 1px #E9EBED;
-    }
-  }
-
-  .history-container {
-    width: 100%;
-    box-sizing: border-box;
-    height: calc(100% - 25px);
-    border: 1px solid #D8DCDE;
-    overflow: auto;
-  }
+	form,
+	section {
+		height: 100%;
+		margin: 0;
+		box-sizing: border-box;
+		&.app_nav_bar {
+			padding: 10px;
+		}
+		&.app_top_bar {
+			padding: 5px;
+			.history-container {
+				height: calc(100% - 45px);
+			}
+		}
+	}
+	pre,
+	.script {
+		font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+		font-feature-settings: "kern";
+		font-size: 12px;
+		text-rendering: optimizeLegibility;
+		color: #2F3941;
+	}
+	.script {
+		width: 100%;
+		margin-top: 5px;
+		margin-bottom: 0;
+	}
+	pre {
+		padding: 0 3px;
+		display: block;
+		white-space: pre-wrap;
+		-ms-word-break: break-all;
+		word-break: break-all;
+    word-wrap: break-word;
+		line-height: 18px;
+		margin: 2px 0;
+		background-color: #fff;
+		border: 0;
+		&.input {
+			color: #337FBD;
+		}
+		&.error {
+			color: #D93F4C;
+		}
+		&.output {
+			border-bottom: solid 1px #E9EBED;
+		}
+	}
+	.history-container {
+		width: 100%;
+		box-sizing: border-box;
+		height: calc(100% - 45px);
+		border: 1px solid rgb(216, 220, 222);
+		overflow: auto;
+	}
 }
 
-html, body, section[data-main] {
-  height: 100%;
+html,
+body,
+section[data-main] {
+	height: 100%;
+	margin: 0;
 }
