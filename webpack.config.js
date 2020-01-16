@@ -51,8 +51,12 @@ module.exports = {
       { from: 'src/templates/*', to: '.', flatten: true },
       // zendesk chat image assets
       { from: 'src/images/chat/*', to: './chat', flatten: true },
-      // zendesk support image assets
-      { from: 'src/images/support/*', to: './support', flatten: true },
+      // zendesk support marketplace assets
+      { from: 'src/images/support/*.png', to: './support', flatten: true },
+      // zendesk support icons
+      { from: 'src/images/support/icon.svg', to: './support/icon_nav_bar.svg'},
+      { from: 'src/images/support/icon.svg', to: './support/icon_top_bar.svg'},
+      { from: 'src/images/support/icon.svg', to: './support/icon_ticket_editor.svg'},
       // copy translations/en.json
       { from: 'src/translations', to: '../translations', flatten: true }
     ]),
