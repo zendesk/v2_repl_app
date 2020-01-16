@@ -4,5 +4,6 @@ dist/
 node_modules/
 coverage/
 src/translations/*
+!src/translations/en.json
 !src/translations/en.yml
 .zat
