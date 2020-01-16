@@ -11,12 +11,12 @@
       },
       "long_description": {
         "title": "Long Description for App: v2 REPL",
-        "value": "Try out Framework v2 APIs in an interactive console\n\n* Useful for debugging\n* Experiment before you implement\n"
+        "value": "Try out Framework v2 APIs in an interactive console\n\n* Useful for debugging\n* Experiment before you implement\n\nBy enabling this app, You agree to the [Built by Zendesk Terms of Use](https://www.zendesk.com/company/built-by-zendesk-agmt/)."
       },
       "installation_instructions": {
         "title": "Installation Instructions for App: v2 REPL",
         "value": ""
-      }  
+      }
     },
     "chat": {
       "name": {
@@ -29,12 +29,12 @@
       },
       "long_description": {
         "title": "Long Description for App: v2 REPL",
-        "value": "Try out Framework v2 APIs in an interactive console\n\n* Useful for debugging\n* Experiment before you implement\n"
+        "value": "Try out Framework v2 APIs in an interactive console\n\n* Useful for debugging\n* Experiment before you implement\n\nBy enabling this app, You agree to the [Built by Zendesk Terms of Use](https://www.zendesk.com/company/built-by-zendesk-agmt/)."
       },
       "installation_instructions": {
         "title": "Installation Instructions for App: v2 REPL",
         "value": ""
-      }  
+      }
     },
     "package": "app_repl_v2"
   },
