@@ -10,7 +10,7 @@ client.on('app.registered', function (data) {
 
   new App(client, data)
 
-  if (location === 'top_bar' || /_sidebar$/.test(location)) {
+  if (location === 'top_bar' || /_card$/.test(location) || /_sidebar$/.test(location)) {
     client.invoke('resize', { height: '500px' })
   }
 })
