@@ -2,8 +2,8 @@
   "app": {
     "support": {
       "name": {
-        "title": "Name for App: v2 REPL",
-        "value": "v2 REPL for Zendesk Support"
+        "title": "Name for App: v2 REPL for Support",
+        "value": "v2 REPL for Support"
       },
       "short_description": {
         "title": "Description for App: v2 REPL",
@@ -11,17 +11,17 @@
       },
       "long_description": {
         "title": "Long Description for App: v2 REPL",
-        "value": "Try out Framework v2 APIs in an interactive console\n\n* Useful for debugging\n* Experiment before you implement\n\nBy enabling this app, You agree to the [Built by Zendesk Terms of Use](https://www.zendesk.com/company/built-by-zendesk-agmt/)."
-      },
-      "installation_instructions": {
-        "title": "Installation Instructions for App: v2 REPL",
-        "value": ""
+        "value": "Try out Framework v2 APIs in an interactive console\n\n* Useful for debugging * Experiment before you implement * Test all app locations\n\nBy enabling this app, You agree to the [Built by Zendesk Terms of Use](https://www.zendesk.com/company/built-by-zendesk-agmt/)."
       }
     },
     "chat": {
+      "installation_instructions": {
+        "title": "Installation Instructions for App: v2 REPL",
+        "value": "Simply click Install and start using the app."
+      },
       "name": {
         "title": "Name for App: v2 REPL",
-        "value": "v2 REPL for Zendesk Chat"
+        "value": "v2 REPL for Chat"
       },
       "short_description": {
         "title": "Description for App: v2 REPL",
@@ -29,47 +29,27 @@
       },
       "long_description": {
         "title": "Long Description for App: v2 REPL",
-        "value": "Try out Framework v2 APIs in an interactive console\n\n* Useful for debugging\n* Experiment before you implement\n\nBy enabling this app, You agree to the [Built by Zendesk Terms of Use](https://www.zendesk.com/company/built-by-zendesk-agmt/)."
-      },
-      "installation_instructions": {
-        "title": "Installation Instructions for App: v2 REPL",
-        "value": ""
+        "value": "Try out Framework v2 APIs in an interactive console\n\n* Useful for debugging * Experiment before you implement * Test all app locations\n\nBy enabling this app, You agree to the [Built by Zendesk Terms of Use](https://www.zendesk.com/company/built-by-zendesk-agmt/)."
       }
     },
-    "package": "app_repl_v2"
-  },
-  "loading": {
-    "title": "loading placeholder",
-    "value": "Welcome to this Sample App"
-  },
-  "fetch": {
-    "done": {
-      "title": "fetch success",
-      "value": "Good"
+    "sell": {
+      "installation_instructions": {
+        "title": "Installation Instructions for App: v2 REPL",
+        "value": "Simply click Install and start using the app."
+      },
+      "name": {
+        "title": "Name for App: v2 REPL",
+        "value": "v2 REPL for Sell"
+      },
+      "short_description": {
+        "title": "Description for App: v2 REPL",
+        "value": "An interactive API console for Zendesk Apps framework developers"
+      },
+      "long_description": {
+        "title": "Long Description for App: v2 REPL",
+        "value": "Try out Framework v2 APIs in an interactive console\n\n* Useful for debugging * Experiment before you implement * Test all app locations\n\nBy enabling this app, You agree to the [Built by Zendesk Terms of Use](https://www.zendesk.com/company/built-by-zendesk-agmt/)."
+      }
     },
-    "fail": {
-      "title": "fetch failure",
-      "value": "failed to fetch information from the server"
-    }
-  },
-  "id": {
-    "title": "user id",
-    "value": "ID"
-  },
-  "email": {
-    "title": "user email",
-    "value": "Email"
-  },
-  "name": {
-    "title": "user name",
-    "value": "Name"
-  },
-  "role": {
-    "title": "user role",
-    "value": "Role"
-  },
-  "groups": {
-    "title": "user groups",
-    "value": "Groups"
+    "package": "v2_repl"
   }
 }
