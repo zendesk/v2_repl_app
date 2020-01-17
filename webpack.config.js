@@ -43,7 +43,9 @@ module.exports = {
 
   plugins: [
     // Empties the dist folder
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({
+      cleanAfterEveryBuildPatterns: ['dist']
+    }),
 
     // Copy over some files
     new CopyWebpackPlugin([
@@ -51,6 +53,8 @@ module.exports = {
       { from: 'src/templates/*', to: '.', flatten: true },
       // zendesk chat image assets
       { from: 'src/images/chat/*', to: './chat', flatten: true },
+      // zendesk sell image assets
+      { from: 'src/images/sell/*', to: './sell', flatten: true },
       // zendesk support marketplace assets
       { from: 'src/images/support/*.png', to: './support', flatten: true },
       // zendesk support icons
@@ -58,7 +62,7 @@ module.exports = {
       { from: 'src/images/support/icon.svg', to: './support/icon_top_bar.svg'},
       { from: 'src/images/support/icon.svg', to: './support/icon_ticket_editor.svg'},
       // copy translations/en.json
-      { from: 'src/translations', to: '../translations', flatten: true }
+      { from: 'src/translations/en.json', to: '../translations/en.json', flatten: true }
     ]),
 
     new MiniCssExtractPlugin({

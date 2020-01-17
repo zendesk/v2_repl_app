@@ -7,7 +7,7 @@ parts:
   - translation:
       key: "txt.apps.v2_repl.app.name"
       title: "Name for App: v2 REPL"
-      value: "v2 REPL"
+      value: "v2 REPL for Support"
   - translation:
       key: "txt.apps.v2_repl.app.short_description"
       title: "Description for App: v2 REPL"
@@ -17,8 +17,14 @@ parts:
       title: "Long Description for App: v2 REPL"
       value: "Try out Framework v2 APIs in an interactive console
 
-        * Useful for debugging
-        * Experiment before you implement
-        * Test all app locations
+
+* Useful for debugging
+* Experiment before you implement
+* Test all app locations
+
 
 By enabling this app, You agree to the [Built by Zendesk Terms of Use](https://www.zendesk.com/company/built-by-zendesk-agmt/)."
+  - translation:
+      key: "txt.apps.v2_repl.app.installation_instructions"
+      title: "Installation Instructions for App: v2 REPL"
+      value: "Simply click Install and start using the app."

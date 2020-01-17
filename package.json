@@ -1,6 +1,6 @@
 {
   "name": "sdk_repl_app",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "An interactive programming environment for ZAF SDK v2 developers",
   "repository": {
     "type": "git",
@@ -23,8 +23,8 @@
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",
-    "eslint": "^3.19.0",
-    "eslint-loader": "^1.9.0",
+    "eslint": "^4.18.2",
+    "eslint-loader": "^3.0.3",
     "standard": "^14.3.1"
   },
   "dependencies": {
