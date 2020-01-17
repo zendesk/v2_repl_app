@@ -43,7 +43,9 @@ module.exports = {
 
   plugins: [
     // Empties the dist folder
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({
+      cleanAfterEveryBuildPatterns: ['dist']
+    }),
 
     // Copy over some files
     new CopyWebpackPlugin([
@@ -58,7 +60,7 @@ module.exports = {
       { from: 'src/images/support/icon.svg', to: './support/icon_top_bar.svg'},
       { from: 'src/images/support/icon.svg', to: './support/icon_ticket_editor.svg'},
       // copy translations/en.json
-      { from: 'src/translations', to: '../translations', flatten: true }
+      { from: 'src/translations/en.json', to: '../translations/en.json', flatten: true }
     ]),
 
     new MiniCssExtractPlugin({
