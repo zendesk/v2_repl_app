@@ -1,209 +1,210 @@
-import BaseApp from './base_app';
-import helpers from './helpers';
+import BaseApp from './base_app'
+import helpers from './helpers'
 
-var UP_ARROW_KEY   = 38,
-    DOWN_ARROW_KEY = 40;
+import hljs from 'highlight.js/lib/highlight.js'
+import 'highlight.js/styles/github.css'
+hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
 
-var isThennable = function(value) {
+var UP_ARROW_KEY = 38
+var DOWN_ARROW_KEY = 40
+
+var isThennable = function (value) {
   return _.isObject(value) &&
-    _.isFunction(value.then);
-};
+    _.isFunction(value.then)
+}
 
-var format = function(value) {
+var format = function (value) {
   if (_.isObject(value) || _.isArray(value)) {
-    return JSON.stringify(value, undefined, 2);
+    return JSON.stringify(value, undefined, 2)
   }
   if (_.isUndefined(value)) {
-    return 'undefined';
+    return 'undefined'
   }
-  return value;
-};
+  return value
+}
 
 class Command {
-
-  constructor(cmd) {
-    this.cmd = cmd;
-    this._startTime = performance.now();
+  constructor (cmd) {
+    this.cmd = cmd
+    this._startTime = performance.now()
   }
 
-  get elapsedTime() {
-    return performance.now() - this._startTime;
+  get elapsedTime () {
+    return performance.now() - this._startTime
   }
-
 }
 
 class CommandHistory {
-  static addCommand(cmd) {
-    this.history.push(new Command(cmd));
-    this.currentCommandIndex = this.history.length;
-    this.saveHistory();
+  static addCommand (cmd) {
+    this.history.push(new Command(cmd))
+    this.currentCommandIndex = this.history.length
+    this.saveHistory()
   }
 
-  static commandAt(index = 0) {
-    return this.history[index];
+  static commandAt (index = 0) {
+    return this.history[index]
   }
 
-  static previousCommand() {
+  static previousCommand () {
     if (this.currentCommandIndex >= 0) {
-      return this.history[--this.currentCommandIndex];
+      return this.history[--this.currentCommandIndex]
     }
   }
 
-  static nextCommand() {
+  static nextCommand () {
     if (this.currentCommandIndex < this.history.length) {
-      return this.history[++this.currentCommandIndex];
+      return this.history[++this.currentCommandIndex]
     }
   }
 
-  static loadHistory() {
+  static loadHistory () {
     try {
-      this.history = JSON.parse(localStorage.getItem('commandHistory')) || [];
-    } catch(e) {
-      this.history = [];
+      this.history = JSON.parse(localStorage.getItem('commandHistory')) || []
+    } catch (e) {
+      this.history = []
     }
-    this.currentCommandIndex = this.history.length;
+    this.currentCommandIndex = this.history.length
   }
 
-  static saveHistory() {
-    localStorage.setItem('commandHistory', JSON.stringify(this.history));
+  static saveHistory () {
+    localStorage.setItem('commandHistory', JSON.stringify(this.history))
   }
 }
 
-CommandHistory.loadHistory();
+CommandHistory.loadHistory()
 
-var log = (function() {
-  var counter = 0;
+var log = (function () {
+  var counter = 0
 
-  function logEval(input, value) {
+  function logEval (input, value) {
     if (console && console.info) {
-      if (console.group) { console.group('SDK REPL App'); }
-      console.info("Eval: ", input);
-      console.info("Result: ", value);
-      if (console.groupEnd) { console.groupEnd(); }
+      if (console.group) { console.group('SDK REPL App') }
+      console.info('Eval: ', input)
+      console.info('Result: ', value)
+      if (console.groupEnd) { console.groupEnd() }
     }
   }
 
-  function appendToHistory(input, value, type) {
-    var $historyContainer = this.$('.history-container');
+  function appendToHistory (input, value, type) {
+    var $historyContainer = this.$('.history-container')
 
     $historyContainer.append(
       this.$('<pre class="history input">').text(input)
     ).append(
-      this.$('<pre class="history output">').text(`> ${value}`).addClass(type)
-    );
+      this.$('<pre class="history output">').html('> ' + hljs.highlight('json', value).value).addClass(type)
+    )
 
-    $historyContainer.scrollTop($historyContainer.get(0).scrollHeight);
+    $historyContainer.scrollTop($historyContainer.get(0).scrollHeight)
   }
 
-  return function(input, value, type) {
-    let currentCount = ++counter;
+  return function (input, value, type) {
+    const currentCount = ++counter
 
-    CommandHistory.addCommand(input);
+    CommandHistory.addCommand(input)
 
     if (isThennable(value)) {
-      let elapsedTime, cmd;
+      let elapsedTime, cmd
       value.then((data) => {
-        let formatted = format(data);
-        cmd = CommandHistory.commandAt(currentCount - 1);
-        appendToHistory.call(this, `${currentCount}: async response (${cmd.elapsedTime}ms)`, formatted);
-        logEval(input, formatted);
+        const formatted = format(data)
+        cmd = CommandHistory.commandAt(currentCount - 1)
+        appendToHistory.call(this, `${currentCount}: async response (${cmd.elapsedTime}ms)`, formatted)
+        logEval(input, formatted)
       }).catch((err) => {
-        cmd = CommandHistory.commandAt(currentCount - 1);
-        appendToHistory.call(this, `${currentCount}: async error (${cmd.elapsedTime}ms)`, formatError(err), 'error');
-      });
-      input = `async request - ${input}`;
+        cmd = CommandHistory.commandAt(currentCount - 1)
+        appendToHistory.call(this, `${currentCount}: async error (${cmd.elapsedTime}ms)`, formatError(err), 'error')
+      })
+      input = `async request - ${input}`
     }
 
-    appendToHistory.apply(this, [`${currentCount}: ${input}`, format(value), type]);
-  };
-}());
+    appendToHistory.apply(this, [`${currentCount}: ${input}`, format(value), type])
+  }
+}())
 
-var formatError = function(err) {
-  return `${err.name}: ${err.message}\n${err.stack}`;
+var formatError = function (err) {
+  return `${err.name}: ${err.message}\n${err.stack}`
 }
 
-var logError = function(input, err) {
-  log.call(this, input, formatError(err), 'error');
-};
+var logError = function (input, err) {
+  log.call(this, input, formatError(err), 'error')
+}
 
-var FunctionToJson;
-var stubFunction = function() {
-  FunctionToJson = Function.prototype.toJSON;
-  Function.prototype.toJSON = function() {
-    return 'function' + (this.name ? ': ' + this.name : '');
-  };
-};
+var FunctionToJson
+var stubFunction = function () {
+  FunctionToJson = Function.prototype.toJSON
+  Function.prototype.toJSON = function () {
+    return 'function' + (this.name ? ': ' + this.name : '')
+  }
+}
 
-var unstubFunction = function() {
-  Function.prototype.toJSON = FunctionToJson;
-};
+var unstubFunction = function () {
+  Function.prototype.toJSON = FunctionToJson
+}
 
-var logEvent = (function() {
-  var info;
-  return function(location, evt) {
-    if (!console || !console.info) { return; }
-    var args = Array.prototype.slice.call(arguments, 2);
-    var message = helpers.fmt("SDK REPL app (%@) received: '%@'", location, evt);
-    info = info || Function.prototype.bind.call(console.info, console); // so we can use apply in IE 9 (http://stackoverflow.com/a/5539378)
-    info.apply(console, [message].concat(args));
-  };
-}());
+var logEvent = (function () {
+  var info
+  return function (location, evt) {
+    if (!console || !console.info) { return }
+    var args = Array.prototype.slice.call(arguments, 2)
+    var message = helpers.fmt("SDK REPL app (%@) received: '%@'", location, evt)
+    info = info || Function.prototype.bind.call(console.info, console) // so we can use apply in IE 9 (http://stackoverflow.com/a/5539378)
+    info.apply(console, [message].concat(args))
+  }
+}())
 
-var fakeLog = function(value) {
-  var $historyContainer = this.$('.history-container'),
-      formatedValue = format.call(this, value),
-      $output = this.$('<pre class="history output">').text(formatedValue);
+var fakeLog = function (value) {
+  var $historyContainer = this.$('.history-container')
+  var formatedValue = format.call(this, value)
+  var $output = this.$('<pre class="history output">').text(formatedValue)
 
-  _.defer(function() {
-    $historyContainer.append($output);
-    $historyContainer.scrollTop($historyContainer.get(0).scrollHeight);
-  });
-};
+  _.defer(function () {
+    $historyContainer.append($output)
+    $historyContainer.scrollTop($historyContainer.get(0).scrollHeight)
+  })
+}
 
 var App = {
   defaultState: 'testing',
 
   events: {
-    'submit form': function(event) {
-      event.preventDefault();
+    'submit form': function (event) {
+      event.preventDefault()
 
-      var oldConsole = window.console;
-      var $script = this.$('.script');
+      var oldConsole = window.console
+      var $script = this.$('.script')
 
-      stubFunction();
+      stubFunction()
       var console = {
         log: fakeLog.bind(this)
       }
 
       try {
+        var input = $script.val().trim()
+        var value = eval(input)
 
-        var input = $script.val().trim(),
-            value = eval(input);
+        if (!input) { return }
 
-        if (!input) { return; }
-
-        log.call(this, input, value);
-      } catch(e) {
-        oldConsole.error(e);
-        logError.call(this, input, e);
+        log.call(this, input, value)
+      } catch (e) {
+        oldConsole.error(e)
+        logError.call(this, input, e)
       }
 
-      console = oldConsole;
-      unstubFunction();
+      console = oldConsole
+      unstubFunction()
 
-      $script.val('').select();
+      $script.val('').select()
     },
 
-    'keydown .script': function(e) {
+    'keydown .script': function (e) {
       if (e.which === UP_ARROW_KEY) {
-        let command = CommandHistory.previousCommand();
+        const command = CommandHistory.previousCommand()
         if (command) {
-          e.preventDefault();
-          this.$('.script').val(command.cmd);
+          e.preventDefault()
+          this.$('.script').val(command.cmd)
         }
       } else if (e.which === DOWN_ARROW_KEY) {
-        let command = CommandHistory.nextCommand();
-        this.$('.script').val(command && command.cmd || '');
+        const command = CommandHistory.nextCommand()
+        this.$('.script').val(command && command.cmd || '')
       }
     }
   }
@@ -236,10 +237,10 @@ var App = {
   'channel.ticket.created',
   'channel.message.received',
   'channel.message.sent'
-].forEach(function(key) {
-  App.events[key] = function() {
-    logEvent(this.currentLocation(), key, arguments);
-  };
-});
+].forEach(function (key) {
+  App.events[key] = function () {
+    logEvent(this.currentLocation(), key, arguments)
+  }
+})
 
-export default BaseApp.extend(App);
+export default BaseApp.extend(App)

@@ -1,0 +1,75 @@
+{
+  "app": {
+    "support": {
+      "name": {
+        "title": "Name for App: v2 REPL",
+        "value": "v2 REPL for Zendesk Support"
+      },
+      "short_description": {
+        "title": "Description for App: v2 REPL",
+        "value": "An interactive API console for Zendesk Apps framework developers"
+      },
+      "long_description": {
+        "title": "Long Description for App: v2 REPL",
+        "value": "Try out Framework v2 APIs in an interactive console\n\n* Useful for debugging\n* Experiment before you implement\n\nBy enabling this app, You agree to the [Built by Zendesk Terms of Use](https://www.zendesk.com/company/built-by-zendesk-agmt/)."
+      },
+      "installation_instructions": {
+        "title": "Installation Instructions for App: v2 REPL",
+        "value": ""
+      }
+    },
+    "chat": {
+      "name": {
+        "title": "Name for App: v2 REPL",
+        "value": "v2 REPL for Zendesk Chat"
+      },
+      "short_description": {
+        "title": "Description for App: v2 REPL",
+        "value": "An interactive API console for Zendesk Apps framework developers"
+      },
+      "long_description": {
+        "title": "Long Description for App: v2 REPL",
+        "value": "Try out Framework v2 APIs in an interactive console\n\n* Useful for debugging\n* Experiment before you implement\n\nBy enabling this app, You agree to the [Built by Zendesk Terms of Use](https://www.zendesk.com/company/built-by-zendesk-agmt/)."
+      },
+      "installation_instructions": {
+        "title": "Installation Instructions for App: v2 REPL",
+        "value": ""
+      }
+    },
+    "package": "app_repl_v2"
+  },
+  "loading": {
+    "title": "loading placeholder",
+    "value": "Welcome to this Sample App"
+  },
+  "fetch": {
+    "done": {
+      "title": "fetch success",
+      "value": "Good"
+    },
+    "fail": {
+      "title": "fetch failure",
+      "value": "failed to fetch information from the server"
+    }
+  },
+  "id": {
+    "title": "user id",
+    "value": "ID"
+  },
+  "email": {
+    "title": "user email",
+    "value": "Email"
+  },
+  "name": {
+    "title": "user name",
+    "value": "Name"
+  },
+  "role": {
+    "title": "user role",
+    "value": "Role"
+  },
+  "groups": {
+    "title": "user groups",
+    "value": "Groups"
+  }
+}

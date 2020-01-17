@@ -1,12 +1,13 @@
 {
   "name": "sdk_repl_app",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "description": "An interactive programming environment for ZAF SDK v2 developers",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zendesk/iframe_app_template.git"
+    "url": "https://github.com/zendesk/v2_repl_app.git"
   },
   "scripts": {
+    "lint": "standard",
     "build": "webpack -p",
     "watch": "webpack --watch"
   },
@@ -18,22 +19,33 @@
     "framework"
   ],
   "bugs": {
-    "url": "https://github.com/zendesk/iframe_app_template/issues"
+    "url": "https://github.com/zendesk/v2_repl_app/issues"
   },
   "devDependencies": {
-    "babel-core": "^6.14.0",
     "babel-eslint": "^6.1.2",
+    "eslint": "^3.19.0",
+    "eslint-loader": "^1.9.0",
+    "standard": "^14.3.1"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.7.7",
+    "@zendeskgarden/css-bedrock": "^7.0.33",
+    "@zendeskgarden/css-forms": "^7.0.18",
+    "@zendeskgarden/svg-icons": "^6.9.0",
     "babel-loader": "^6.2.5",
-    "babel-preset-es2015": "^6.14.0",
-    "css-loader": "^0.24.0",
-    "eslint": "^3.4.0",
-    "eslint-loader": "^1.5.0",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "handlebars": "4.0.5",
+    "clean-webpack-plugin": "^2.0.2",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.4.1",
+    "handlebars": "^4.6.0",
     "handlebars-loader": "^1.1.4",
-    "node-sass": "^3.8.0",
-    "sass-loader": "^4.0.0",
-    "style-loader": "^0.13.0",
-    "webpack": "^1.13.2"
+    "highlight.js": "^9.17.1",
+    "mini-css-extract-plugin": "^0.6.0",
+    "postcss-import": "^12.0.1",
+    "postcss-inline-svg": "^3.1.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "precss": "^4.0.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
   }
 }

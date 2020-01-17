@@ -1,40 +1,19 @@
 /* eslint-env node */
-
-// var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var extractStyles = new ExtractTextPlugin('main.css');
+const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
-  progress: true,
   entry: {
     app: ['./src/javascripts/index.js', './src/stylesheets/app.scss']
   },
   output: {
-    path: './dist/assets',
-    filename: 'main.js',
-    sourceMapFilename: '[file].map'
+    path: path.resolve(__dirname, 'dist/assets'),
+    filename: 'main.js'
   },
   module: {
-    preLoaders: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader'
-      }
-    ],
-    loaders: [
-      {
-        test: /\.scss$/,
-        loader: extractStyles.extract("style", ["css?sourceMap", "sass?sourceMap"])
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015']
-        }
-      },
+    rules: [
       {
         test: /\.(handlebars|hd?bs)$/,
         loader: 'handlebars-loader',
@@ -42,12 +21,18 @@ module.exports = {
           extensions: ['handlebars', 'hdbs', 'hbs'],
           runtime: 'handlebars'
         }
+      },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          { loader: 'css-loader', options: { url: false } },
+          'postcss-loader'
+        ]
       }
     ]
   },
-  resolve: {
-    extensions: ['', '.js']
-  },
+
   externals: {
     handlebars: 'Handlebars',
     jquery: 'jQuery',
@@ -55,9 +40,29 @@ module.exports = {
     moment: 'moment',
     zendesk_app_framework_sdk: 'ZAFClient'
   },
-  debug: true,
-  devtool: 'source-map',
+
   plugins: [
-    extractStyles
+    // Empties the dist folder
+    new CleanWebpackPlugin(),
+
+    // Copy over some files
+    new CopyWebpackPlugin([
+      { from: 'src/manifest.json', to: '../', flatten: true },
+      { from: 'src/templates/*', to: '.', flatten: true },
+      // zendesk chat image assets
+      { from: 'src/images/chat/*', to: './chat', flatten: true },
+      // zendesk support marketplace assets
+      { from: 'src/images/support/*.png', to: './support', flatten: true },
+      // zendesk support icons
+      { from: 'src/images/support/icon.svg', to: './support/icon_nav_bar.svg'},
+      { from: 'src/images/support/icon.svg', to: './support/icon_top_bar.svg'},
+      { from: 'src/images/support/icon.svg', to: './support/icon_ticket_editor.svg'},
+      // copy translations/en.json
+      { from: 'src/translations', to: '../translations', flatten: true }
+    ]),
+
+    new MiniCssExtractPlugin({
+      filename: 'main.css'
+    })
   ]
-};
+}

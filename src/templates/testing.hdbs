@@ -1,4 +1,4 @@
 <form class="app_{{location}}">
   <div class="history-container"></div>
-  <input type="text" class="script" value="zafClient.context()"></input>
+  <input type="text" class="script c-txt__input" placeholder="Type a command..." value="zafClient.context()"></input>
 </form>
