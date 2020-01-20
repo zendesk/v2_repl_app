@@ -7,7 +7,7 @@ parts:
   - translation:
       key: "txt.apps.v2_repl.app.name"
       title: "Name for App: v2 REPL"
-      value: "v2 REPL for Support"
+      value: "v2 REPL"
   - translation:
       key: "txt.apps.v2_repl.app.short_description"
       title: "Description for App: v2 REPL"

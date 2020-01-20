@@ -1,6 +1,6 @@
 {
   "name": "sdk_repl_app",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "An interactive programming environment for ZAF SDK v2 developers",
   "repository": {
     "type": "git",
