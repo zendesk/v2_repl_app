@@ -22,6 +22,7 @@
       "chat_sidebar": "assets/iframe.html"
     },
     "sell": {
+      "background": "assets/iframe.html",
       "company_card": "assets/iframe.html",
       "deal_card": "assets/iframe.html",
       "lead_card": "assets/iframe.html",
@@ -32,6 +33,6 @@
       "email_editor": "assets/iframe.html"
     }
   },
-  "version": "2.0.3",
+  "version": "2.0.4",
   "frameworkVersion": "2.0"
 }
