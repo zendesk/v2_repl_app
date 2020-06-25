@@ -12,11 +12,41 @@
       "background": "assets/iframe.html",
       "nav_bar": "assets/iframe.html",
       "top_bar": "assets/iframe.html",
-      "ticket_sidebar": "assets/iframe.html",
-      "new_ticket_sidebar": "assets/iframe.html",
-      "user_sidebar": "assets/iframe.html",
-      "organization_sidebar": "assets/iframe.html",
-      "ticket_editor": "assets/iframe.html"
+      "ticket_sidebar": {
+        "url": "assets/iframe.html",
+        "size": {
+          "width": "320px",
+          "height": "500px"
+        }
+      },
+      "new_ticket_sidebar": {
+        "url": "assets/iframe.html",
+        "size": {
+          "width": "320px",
+          "height": "500px"
+        }
+      },
+      "user_sidebar": {
+        "url": "assets/iframe.html",
+        "size": {
+          "width": "320px",
+          "height": "500px"
+        }
+      },
+      "organization_sidebar": {
+        "url": "assets/iframe.html",
+        "size": {
+          "width": "320px",
+          "height": "500px"
+        }
+      },
+      "ticket_editor": {
+        "url": "assets/iframe.html",
+        "size": {
+          "width": "320px",
+          "height": "500px"
+        }
+      }
     },
     "chat": {
       "chat_sidebar": "assets/iframe.html"

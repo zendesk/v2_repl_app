@@ -207,31 +207,99 @@ var App = {
         this.$('.script').val(command && command.cmd || '')
       }
     }
-  }
+  },
+
+  requests: {
+    ticketFields: function() {
+      return {
+        url: `/api/v2/ticket_fields.json`
+      }
+    },
+    userFields: function() {
+      return {
+        url: `/api/v2/user_fields.json`
+      }
+    },
+    organizationFields: function() {
+      return {
+        url: `/api/v2/organization_fields.json`
+      }
+    }
+  },
 };
 
 [
-  'app.created',
-  'app.activated',
+  // Core Apps API events
   'app.deactivated',
   'pane.activated',
   'pane.deactivated',
   'app.willDestroy',
-  '*.changed',
-  'app.route.changed',
-  'modal.close',
-  'ticket.submit.start',
-  'ticket.submit.done',
-  'ticket.submit.fail',
-  'ticket.submit.always',
-  'ticket.viewers.changed',
-  'ticket.updated',
-  'ticket.save',
-  'ticket.saved',
-  'notification.repl',
-  'message.repl',
   'window.resize',
   'window.scroll',
+  // Nav bar events
+  'app.route.changed',
+  // Wildcard change event
+  '*.changed',
+  // Ticket change events
+  'ticket.assignee.group.id.changed',
+  'ticket.assignee.group.name.changed',
+  'ticket.assignee.user.email.changed',
+  'ticket.assignee.user.externalId.changed',
+  'ticket.assignee.user.id.changed',
+  'ticket.assignee.user.name.changed',
+  'ticket.brand.changed',
+  'ticket.collaborators.changed',
+  'ticket.comments.changed',
+  'ticket.due_date.changed',
+  'ticket.externalId.changed',
+  'ticket.form.id.changed',
+  'ticket.postSaveAction.changed',
+  'ticket.priority.changed',
+  'ticket.problem_id.changed',
+  'ticket.requester.email.changed',
+  'ticket.requester.externalId.changed',
+  'ticket.requester.id.changed',
+  'ticket.requester.name.changed',
+  'ticket.sharedWith.changed',
+  'ticket.status.changed',
+  'ticket.subject.changed',
+  'ticket.tags.changed',
+  'ticket.type.changed',
+  // Ticket comment change events
+  'comment.text.changed',
+  'comment.type.changed',
+  'comment.attachments.changed',
+  // Ticket collision events
+  'ticket.viewers.changed',
+  // Modal events
+  'modal.close',
+  // User events
+  'user.alias.changed',
+  'user.avatarUrl.changed',
+  'user.details.changed',
+  'user.email.changed',
+  'user.externalId.changed',
+  'user.groups.changed',
+  'user.name.changed',
+  'user.notes.changed',
+  'user.role.changed',
+  'user.signature.changed',
+  'user.tags.changed',
+  'user.timeZone.changed',
+  'user.organizations.changed',
+  // Organization events
+  'organization.details.changed',
+  'organization.domains.changed',
+  'organization.externalId.changed',
+  'organization.group.changed',
+  'organization.name.changed',
+  'organization.notes.changed',
+  'organization.sharedTickets.changed',
+  'organization.sharedComments.changed',
+  'organization.tags.changed',
+  // Random events
+  'notification.repl',
+  'message.repl',
   'channel.chat.start',
   'channel.chat.end',
   'channel.ticket.created',
@@ -242,5 +310,7 @@ var App = {
     logEvent(this.currentLocation(), key, arguments)
   }
 })
+
+export { logEvent };
 
 export default BaseApp.extend(App)

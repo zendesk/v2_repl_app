@@ -32,8 +32,6 @@ function BaseApp (zafClient, data) {
   if (this.defaultState) {
     this.switchTo(this.defaultState, { location: this._location })
   }
-  resolveHandler(this, 'app.created')()
-  resolveHandler(this, 'app.activated')(evt, evt)
 }
 
 BaseApp.prototype = {
@@ -53,9 +51,7 @@ BaseApp.prototype = {
     var alwaysCallback = resolveHandler(this, name + '.always')
     var options = _.isFunction(req) ? req.apply(this, Array.prototype.slice.call(arguments, 1)) : req
 
-    return this.zafClient.request(options)
-      .then(doneCallback, failCallback)
-      .then(alwaysCallback, alwaysCallback)
+    return this.zafClient.request(options);
   },
 
   renderTemplate: function (name, data) {
