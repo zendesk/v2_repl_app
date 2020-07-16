@@ -27,7 +27,7 @@
       "deal_card": "assets/iframe.html",
       "lead_card": "assets/iframe.html",
       "person_card": "assets/iframe.html",
-      "dashboard": "assets/iframe.html",
+      "top_bar": "assets/iframe.html",
       "note_editor": "assets/iframe.html",
       "call_log_editor": "assets/iframe.html",
       "email_editor": "assets/iframe.html"
