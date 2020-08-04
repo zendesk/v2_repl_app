@@ -55,6 +55,7 @@ module.exports = {
       { from: 'src/images/chat/*', to: './chat', flatten: true },
       // zendesk sell image assets
       { from: 'src/images/sell/*', to: './sell', flatten: true },
+      { from: 'src/images/sell/icon.svg', to: './sell/icon_top_bar.svg'},
       // zendesk support marketplace assets
       { from: 'src/images/support/*.png', to: './support', flatten: true },
       // zendesk support icons
