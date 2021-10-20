@@ -31,7 +31,7 @@
     "@babel/preset-env": "^7.7.7",
     "@zendeskgarden/css-bedrock": "^7.0.33",
     "@zendeskgarden/css-forms": "^7.0.18",
-    "@zendeskgarden/svg-icons": "^6.9.0",
+    "@zendeskgarden/svg-icons": "^6.30.2",
     "babel-loader": "^6.2.5",
     "clean-webpack-plugin": "^2.0.2",
     "copy-webpack-plugin": "^5.1.1",
