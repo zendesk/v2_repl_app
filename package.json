@@ -28,7 +28,7 @@
     "standard": "^14.3.1"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-env": "^7.15.6",
     "@zendeskgarden/css-bedrock": "^7.0.33",
     "@zendeskgarden/css-forms": "^7.0.18",
     "@zendeskgarden/svg-icons": "^6.9.0",
