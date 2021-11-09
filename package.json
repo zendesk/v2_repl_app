@@ -1,7 +1,7 @@
 {
-  "name": "sdk_repl_app",
+  "name": "sdk_repl_app_staging",
   "version": "2.0.5",
-  "description": "An interactive programming environment for ZAF SDK v2 developers",
+  "description": "An interactive programming environment for ZAF SDK v2 developers based on S3 staging",
   "repository": {
     "type": "git",
     "url": "https://github.com/zendesk/v2_repl_app.git"
