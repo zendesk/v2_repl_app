@@ -15,8 +15,11 @@
       "ticket_sidebar": {
         "url": "assets/iframe.html",
         "flexible": true
-      },
-      "new_ticket_sidebar": "assets/iframe.html",
+      }, 
+      "new_ticket_sidebar": {
+        "url": "assets/iframe.html",
+        "flexible": true
+      }, 
       "user_sidebar": "assets/iframe.html",
       "organization_sidebar": "assets/iframe.html",
       "ticket_editor": "assets/iframe.html"
