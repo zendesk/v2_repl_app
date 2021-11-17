@@ -12,7 +12,10 @@
       "background": "assets/iframe.html",
       "nav_bar": "assets/iframe.html",
       "top_bar": "assets/iframe.html",
-      "ticket_sidebar": "assets/iframe.html",
+      "ticket_sidebar": {
+        "url": "assets/iframe.html",
+        "flexible": true
+      },
       "new_ticket_sidebar": "assets/iframe.html",
       "user_sidebar": "assets/iframe.html",
       "organization_sidebar": "assets/iframe.html",
