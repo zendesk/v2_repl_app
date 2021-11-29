@@ -25,19 +25,15 @@ The complete app can be downloaded from the [Zendesk Marketplace](https://www.ze
 v2 REPL App is built using [Zendesk Apps Tool (ZAT)](https://github.com/zendesk/zendesk_apps_tools). To make changes to the source code:
 
 1) Clone the current repository and change directory
-  ```
+  ```sh
     git clone git@github.com:zendesk/v2_repl_app.git
     cd v2_repl_app
   ```
 
 2) For development, run in the terminal
-  ```
-    npm run build:dev
-  ```
-  ```
+  ```sh
+    npm run build
     npm run watch
-  ```
-  ```
     zat server -p dist
   ```
 
@@ -45,11 +41,37 @@ v2 REPL App is built using [Zendesk Apps Tool (ZAT)](https://github.com/zendesk/
 
 Webpack is the builder that will transform the `src` directory into an `dist/` app suitable for browsers. The config can be quite confusing so we opted to keep it as simple as possible. The most confusing part is probably the css part. It uses a `sass-loader` to convert .scss into css, then `css-loader` to convert that into javascript, and last `ExtractTextPlugin` to convert that javascript back into css and stick it into a `styles.css` file.
 
-For development run either a single run `npm run build:dev` or keep watching the files with `npm run watch`. For production `npm run build` will run the end result through babel, because IE11 doesn't understand ES6 code, and webpack's `-p` options will minify the code.
+For development run either a single run `npm run build` or keep watching the files with `npm run watch`. For production `npm run build` will run the end result through babel, because IE11 doesn't understand ES6 code, and webpack's `-p` options will minify the code.
 
 ## Testing
 This app is designed for testing the results of various Zendesk App Framework APIs. From within the app, you can run test commands
 like `zafClient.get('ticket.subject')`.
+
+## Packaging
+
+```sh
+cd "$ZENDESK_CODE_DIR/v2_repl_app"
+
+# Since ZAT may not work with latest Ruby, you probably want to make
+# sure you are using the specified version first
+ln -s "$ZENDESK_CODE_DIR/zendesk_apps_tools/.ruby-version"
+
+# Install ZAT
+gem install zendesk_apps_tools
+
+# Update translations
+cd src/
+zat translate to_json
+
+# Build
+cd ..
+npm install --no-save
+npm run build
+
+# Packaging
+cd dist
+zip -r -FS /path/to/v2_repl.zip *
+```
 
 ## Contribute
 Pull requests and Github issues are welcome. They'll be merged with two :+1:s from the maintainers.
