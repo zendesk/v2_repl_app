@@ -16,11 +16,7 @@ module.exports = {
     rules: [
       {
         test: /\.(handlebars|hd?bs)$/,
-        loader: 'handlebars-loader',
-        query: {
-          extensions: ['handlebars', 'hdbs', 'hbs'],
-          runtime: 'handlebars'
-        }
+        loader: 'handlebars-loader'
       },
       {
         test: /\.(sa|sc|c)ss$/,

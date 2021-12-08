@@ -9,7 +9,7 @@ module.exports = {
     'postcss-import': {},
     'precss': {},
     'postcss-inline-svg': {
-      'path': 'node_modules/@zendeskgarden/svg-icons/src'
+      'paths': ['node_modules/@zendeskgarden/svg-icons/src']
     }
   }
 }

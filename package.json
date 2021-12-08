@@ -8,7 +8,7 @@
   },
   "scripts": {
     "lint": "standard",
-    "build": "webpack -p",
+    "build": "webpack --node-env=production",
     "watch": "webpack --watch"
   },
   "license": "Apache-2.0",
@@ -32,20 +32,20 @@
     "@zendeskgarden/css-bedrock": "^7.0.33",
     "@zendeskgarden/css-forms": "^7.0.18",
     "@zendeskgarden/svg-icons": "^6.9.0",
-    "babel-loader": "^6.2.5",
+    "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^2.0.2",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.4.1",
     "handlebars": "^4.7.6",
     "handlebars-loader": "^1.1.4",
     "highlight.js": "^9.17.1",
-    "mini-css-extract-plugin": "^0.6.0",
-    "postcss-import": "^12.0.1",
-    "postcss-inline-svg": "^3.1.1",
-    "postcss-loader": "^3.0.0",
-    "postcss-preset-env": "^6.7.0",
+    "mini-css-extract-plugin": "^2.4.5",
+    "postcss-import": "^14.0.2",
+    "postcss-inline-svg": "^5.0.0",
+    "postcss-loader": "^6.2.1",
+    "postcss-preset-env": "^7.0.0",
     "precss": "^4.0.0",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1"
   }
 }

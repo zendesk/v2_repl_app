@@ -1,0 +1,18 @@
+name: CI Build
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  main:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: zendesk/checkout@v2
+      - uses: zendesk/setup-node@v2.5.0
+        with:
+          node-version: '17'
+      - run: npm install
+      - run: npm run build
