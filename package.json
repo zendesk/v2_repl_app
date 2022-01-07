@@ -43,7 +43,7 @@
     "postcss-import": "^14.0.2",
     "postcss-inline-svg": "^5.0.0",
     "postcss-loader": "^6.2.1",
-    "postcss-preset-env": "^7.0.0",
+    "postcss-preset-env": "^7.0.2",
     "precss": "^4.0.0",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1"
