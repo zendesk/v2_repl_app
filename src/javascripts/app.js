@@ -88,6 +88,10 @@ var log = (function () {
   function appendToHistory (input, value, type) {
     var $historyContainer = this.$('.history-container')
 
+    if (typeof value !== 'string' && value.toString) {
+      value = value.toString()
+    }
+
     $historyContainer.append(
       this.$('<pre class="history input">').text(input)
     ).append(
