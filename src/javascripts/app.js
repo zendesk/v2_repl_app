@@ -157,8 +157,8 @@ var logEvent = (function () {
 
 var fakeLog = function (value) {
   var $historyContainer = this.$('.history-container')
-  var formatedValue = format.call(this, value)
-  var $output = this.$('<pre class="history output">').text(formatedValue)
+  var formattedValue = format.call(this, value)
+  var $output = this.$('<pre class="history output">').text(formattedValue)
 
   _.defer(function () {
     $historyContainer.append($output)
