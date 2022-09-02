@@ -4,6 +4,9 @@ import helpers from './helpers'
 import hljs from 'highlight.js/lib/highlight.js'
 import 'highlight.js/styles/github.css'
 hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
+// TODO Evaluate IE support and upgrade if possible
+// https://github.com/highlightjs/highlight.js/issues/2877
+hljs.configure({hideUpgradeWarningAcceptNoSupportOrSecurityUpdates: true})
 
 var UP_ARROW_KEY = 38
 var DOWN_ARROW_KEY = 40
