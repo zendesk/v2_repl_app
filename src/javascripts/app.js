@@ -77,7 +77,7 @@ var log = (function () {
   var counter = 0
 
   function logEval (input, value) {
-    if (console && console.info) {
+    if (console && console.info && window.logging) {
       if (console.group) { console.group('SDK REPL App') }
       console.info('Eval: ', input)
       console.info('Result: ', value)
@@ -147,7 +147,7 @@ var unstubFunction = function () {
 var logEvent = (function () {
   var info
   return function (location, evt) {
-    if (!console || !console.info) { return }
+    if (!(console && console.info && window.logging)) { return }
     var args = Array.prototype.slice.call(arguments, 2)
     var message = helpers.fmt("SDK REPL app (%@) received: '%@'", location, evt)
     info = info || Function.prototype.bind.call(console.info, console) // so we can use apply in IE 9 (http://stackoverflow.com/a/5539378)
