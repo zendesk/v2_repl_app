@@ -45,7 +45,7 @@ For development run either a single run `npm run build` or keep watching the fil
 
 ## Testing
 This app is designed for testing the results of various Zendesk App Framework APIs. From within the app, you can run test commands
-like `zafClient.get('ticket.subject')`.
+like `zafClient.get('ticket.subject')`. You can also enable logging by running `window.logging = true`.
 
 ## Packaging
 

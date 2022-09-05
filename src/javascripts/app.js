@@ -4,6 +4,9 @@ import helpers from './helpers'
 import hljs from 'highlight.js/lib/highlight.js'
 import 'highlight.js/styles/github.css'
 hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
+// TODO Evaluate IE support and upgrade if possible
+// https://github.com/highlightjs/highlight.js/issues/2877
+hljs.configure({hideUpgradeWarningAcceptNoSupportOrSecurityUpdates: true})
 
 var UP_ARROW_KEY = 38
 var DOWN_ARROW_KEY = 40
@@ -77,7 +80,7 @@ var log = (function () {
   var counter = 0
 
   function logEval (input, value) {
-    if (console && console.info) {
+    if (console && console.info && window.logging) {
       if (console.group) { console.group('SDK REPL App') }
       console.info('Eval: ', input)
       console.info('Result: ', value)
@@ -87,6 +90,10 @@ var log = (function () {
 
   function appendToHistory (input, value, type) {
     var $historyContainer = this.$('.history-container')
+
+    if (typeof value !== 'string' && value.toString) {
+      value = value.toString()
+    }
 
     $historyContainer.append(
       this.$('<pre class="history input">').text(input)
@@ -143,7 +150,7 @@ var unstubFunction = function () {
 var logEvent = (function () {
   var info
   return function (location, evt) {
-    if (!console || !console.info) { return }
+    if (!(console && console.info && window.logging)) { return }
     var args = Array.prototype.slice.call(arguments, 2)
     var message = helpers.fmt("SDK REPL app (%@) received: '%@'", location, evt)
     info = info || Function.prototype.bind.call(console.info, console) // so we can use apply in IE 9 (http://stackoverflow.com/a/5539378)
@@ -153,8 +160,8 @@ var logEvent = (function () {
 
 var fakeLog = function (value) {
   var $historyContainer = this.$('.history-container')
-  var formatedValue = format.call(this, value)
-  var $output = this.$('<pre class="history output">').text(formatedValue)
+  var formattedValue = format.call(this, value)
+  var $output = this.$('<pre class="history output">').text(formattedValue)
 
   _.defer(function () {
     $historyContainer.append($output)
