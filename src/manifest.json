@@ -2,7 +2,7 @@
   "name": "v2 REPL",
   "author": {
     "name": "Zendesk",
-    "email": "https://support.zendesk.com/hc/en-us/articles/4408843597850-Contacting-Zendesk-Customer-Support",
+    "email": "https://www.zendesk.com/marketplace/apps/support/101101/v2-repl/?help_widget=true",
     "url": "https://www.zendesk.com"
   },
   "defaultLocale": "en",
@@ -39,6 +39,6 @@
       "email_editor": "assets/iframe.html"
     }
   },
-  "version": "2.0.8",
+  "version": "2.0.9",
   "frameworkVersion": "2.0"
 }
