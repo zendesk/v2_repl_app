@@ -16,7 +16,7 @@ jobs:
           node-version: '17'
       - uses: zendesk/setup-ruby@v1
         with:
-          ruby-version: '2.6.9'
+          ruby-version: '2.7.7'
       - name: Vendor Cache
         id: vendor-cache
         uses: zendesk/cache@v2
