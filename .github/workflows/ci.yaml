@@ -23,6 +23,10 @@ jobs:
         with:
           path: vendor/cache
           key: ${{ runner.os }}-vendor
+      - name: Install compatible ffi Ruby gem
+        run: gem install ffi -v 1.16.0
+      - name: Install compatible hitimes Ruby gem
+        run: gem install hitimes -v 2.0.0
       - run: gem install zendesk_apps_tools
       - run: zat translate to_json --path=./src
       - run: cat ./src/translations/en.json
