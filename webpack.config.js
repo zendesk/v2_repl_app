@@ -1,6 +1,6 @@
 /* eslint-env node */
 const path = require('path')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
@@ -45,23 +45,25 @@ module.exports = {
     }),
 
     // Copy over some files
-    new CopyWebpackPlugin([
-      { from: 'src/manifest.json', to: '../', flatten: true },
-      { from: 'src/templates/*', to: '.', flatten: true },
-      // zendesk chat image assets
-      { from: 'src/images/chat/*', to: './chat', flatten: true },
-      // zendesk sell image assets
-      { from: 'src/images/sell/*', to: './sell', flatten: true },
-      { from: 'src/images/sell/icon.svg', to: './sell/icon_top_bar.svg'},
-      // zendesk support marketplace assets
-      { from: 'src/images/support/*.png', to: './support', flatten: true },
-      // zendesk support icons
-      { from: 'src/images/support/icon.svg', to: './support/icon_nav_bar.svg'},
-      { from: 'src/images/support/icon.svg', to: './support/icon_top_bar.svg'},
-      { from: 'src/images/support/icon.svg', to: './support/icon_ticket_editor.svg'},
-      // copy translations/en.json
-      { from: 'src/translations/en.json', to: '../translations/en.json', flatten: true }
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {from: 'src/manifest.json', to: '../'},
+        {from: 'src/templates/*', to: '.'},
+        // zendesk chat image assets
+        {from: 'src/images/chat/*', to: './chat'},
+        // zendesk sell image assets
+        {from: 'src/images/sell/*', to: './sell'},
+        {from: 'src/images/sell/icon.svg', to: './sell/icon_top_bar.svg'},
+        // zendesk support marketplace assets
+        {from: 'src/images/support/*.png', to: './support'},
+        // zendesk support icons
+        {from: 'src/images/support/icon.svg', to: './support/icon_nav_bar.svg'},
+        {from: 'src/images/support/icon.svg', to: './support/icon_top_bar.svg'},
+        {from: 'src/images/support/icon.svg', to: './support/icon_ticket_editor.svg'},
+        // copy translations/en.json
+        {from: 'src/translations/en.json', to: '../translations/en.json'}
+      ]
+    }),
 
     new MiniCssExtractPlugin({
       filename: 'main.css'
