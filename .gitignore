@@ -7,3 +7,4 @@ src/translations/*
 !src/translations/en.yml
 .zat
 .ruby-version
+.idea/
