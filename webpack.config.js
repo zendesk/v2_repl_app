@@ -48,14 +48,14 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {from: 'src/manifest.json', to: '../'},
-        {from: 'src/templates/*', to: '.'},
+        {from: 'src/templates/*', to: './[name][ext]'},
         // zendesk chat image assets
-        {from: 'src/images/chat/*', to: './chat'},
+        {from: 'src/images/chat/*', to: './chat/[name][ext]'},
         // zendesk sell image assets
-        {from: 'src/images/sell/*', to: './sell'},
+        {from: 'src/images/sell/*', to: './sell/[name][ext]'},
         {from: 'src/images/sell/icon.svg', to: './sell/icon_top_bar.svg'},
         // zendesk support marketplace assets
-        {from: 'src/images/support/*.png', to: './support'},
+        {from: 'src/images/support/*.png', to: './support/[name][ext]'},
         // zendesk support icons
         {from: 'src/images/support/icon.svg', to: './support/icon_nav_bar.svg'},
         {from: 'src/images/support/icon.svg', to: './support/icon_top_bar.svg'},
