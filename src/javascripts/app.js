@@ -1,7 +1,7 @@
 import BaseApp from './base_app'
 import helpers from './helpers'
 
-import hljs from 'highlight.js/lib/highlight.js'
+import hljs from 'highlight.js'
 import 'highlight.js/styles/github.css'
 hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
 // TODO Evaluate IE support and upgrade if possible
