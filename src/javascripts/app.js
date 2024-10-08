@@ -186,6 +186,10 @@ var App = {
 
       try {
         var input = $script.val().trim()
+        var regex = new RegExp(/\bclient\b/)
+        if(regex.test(input) === true ){
+           input = input.replace(regex, 'zafClient')
+        }
         var value = eval(input)
 
         if (!input) { return }
