@@ -11,7 +11,7 @@ An interactive programming environment for ZAF v2 developers.
 NodeJS >= 8.1.0
 
 ## Owners
-This repo is maintained by @zendesk/vegemite. You can contact us using that Github handle on issues or pull requests. If you are not able to use that team handle you can mention recent contributors from [here](https://github.com/zendesk/v2_repl_app/graphs/contributors).
+This repo is maintained by @zendesk/wattle. You can contact us using that Github handle on issues or pull requests. If you are not able to use that team handle you can mention recent contributors from [here](https://github.com/zendesk/v2_repl_app/graphs/contributors).
 We are often active during daytime hours on the East coast of Australia (UTC+10).
 
 We have a Slack channel called `apps` accessible to all Zendesk employees. The broader developer community is encouraged to get in
@@ -75,7 +75,7 @@ zip -r -FS /path/to/v2_repl.zip *
 
 ## Contribute
 Pull requests and Github issues are welcome. They'll be merged with two :+1:s from the maintainers.
-Please CC @zendesk/vegemite on your PR.
+Please CC @zendesk/wattle on your PR.
 
 ## Bugs
 Bugs can be reported as Github issues or as tickets in https://support.zendesk.com
