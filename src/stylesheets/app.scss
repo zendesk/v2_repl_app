@@ -1,6 +1,25 @@
 @import '@zendeskgarden/css-bedrock';
 @import '@zendeskgarden/css-forms';
 
+[data-theme="light"] {
+  --background-default: rgb(255, 255, 255);
+  --foreground-default: rgb(41, 50, 57);
+	--border-default: rgb(216, 220, 222);
+	--border-output-bottom: rgb(233 235 237);
+}
+
+[data-theme="dark"] {
+  --background-default: rgb(21, 26, 30);
+  --foreground-default: rgb(216, 220, 222);
+	--border-default: rgb(57, 67, 75);
+	--border-output-bottom: var(--border-default);
+}
+
+body {
+  background: var(--background-default);
+  color: var(--foreground-default);
+}
+
 section[data-main] {
 	form,
 	section {
@@ -23,7 +42,7 @@ section[data-main] {
 		font-feature-settings: "kern";
 		font-size: 12px;
 		text-rendering: optimizeLegibility;
-		color: #2F3941;
+		color: var(--foreground-default);
 	}
 	.script {
 		width: 100%;
@@ -39,7 +58,7 @@ section[data-main] {
     word-wrap: break-word;
 		line-height: 18px;
 		margin: 2px 0;
-		background-color: #fff;
+		background-color: var(--background-default);
 		border: 0;
 		&.input {
 			color: #337FBD;
@@ -48,14 +67,14 @@ section[data-main] {
 			color: #D93F4C;
 		}
 		&.output {
-			border-bottom: solid 1px #E9EBED;
+			border-bottom: solid 1px var(--border-output-bottom);
 		}
 	}
 	.history-container {
 		width: 100%;
 		box-sizing: border-box;
 		height: calc(100% - 45px);
-		border: 1px solid rgb(216, 220, 222);
+		border: 1px solid var(--border-default);
 		overflow: auto;
 	}
 }
@@ -65,4 +84,10 @@ body,
 section[data-main] {
 	height: 100%;
 	margin: 0;
+}
+
+.c-txt__input {
+	background-color: var(--background-default) !important;
+	color: var(--foreground-default) !important;
+	border-color: var(--border-default) !important;
 }
