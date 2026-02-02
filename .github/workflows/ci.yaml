@@ -27,7 +27,7 @@ jobs:
         run: gem install ffi -v 1.16.0
       - name: Install compatible hitimes Ruby gem
         run: gem install hitimes -v 2.0.0
-      - run: gem install zendesk_apps_tools
+      - run: gem install zendesk_apps_tools -v 3.9.3
       - run: zat translate to_json --path=./src
       - run: cat ./src/translations/en.json
       - run: npm install
