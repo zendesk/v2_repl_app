@@ -22,10 +22,7 @@
     "url": "https://github.com/zendesk/v2_repl_app/issues"
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.8.0",
-    "eslint-loader": "^3.0.3",
-    "standard": "^14.3.1"
+    "standard": "^17.1.2"
   },
   "dependencies": {
     "@babel/preset-env": "^7.25.4",
