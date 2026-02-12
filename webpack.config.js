@@ -1,4 +1,3 @@
-/* eslint-env node */
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -47,21 +46,21 @@ module.exports = {
     // Copy over some files
     new CopyWebpackPlugin({
       patterns: [
-        {from: 'src/manifest.json', to: '../'},
-        {from: 'src/templates/*', to: './[name][ext]'},
+        { from: 'src/manifest.json', to: '../' },
+        { from: 'src/templates/*', to: './[name][ext]' },
         // zendesk chat image assets
-        {from: 'src/images/chat/*', to: './chat/[name][ext]'},
+        { from: 'src/images/chat/*', to: './chat/[name][ext]' },
         // zendesk sell image assets
-        {from: 'src/images/sell/*', to: './sell/[name][ext]'},
-        {from: 'src/images/sell/icon.svg', to: './sell/icon_top_bar.svg'},
+        { from: 'src/images/sell/*', to: './sell/[name][ext]' },
+        { from: 'src/images/sell/icon.svg', to: './sell/icon_top_bar.svg' },
         // zendesk support marketplace assets
-        {from: 'src/images/support/*.png', to: './support/[name][ext]'},
+        { from: 'src/images/support/*.png', to: './support/[name][ext]' },
         // zendesk support icons
-        {from: 'src/images/support/icon.svg', to: './support/icon_nav_bar.svg'},
-        {from: 'src/images/support/icon.svg', to: './support/icon_top_bar.svg'},
-        {from: 'src/images/support/icon.svg', to: './support/icon_ticket_editor.svg'},
+        { from: 'src/images/support/icon.svg', to: './support/icon_nav_bar.svg' },
+        { from: 'src/images/support/icon.svg', to: './support/icon_top_bar.svg' },
+        { from: 'src/images/support/icon.svg', to: './support/icon_ticket_editor.svg' },
         // copy translations/en.json
-        {from: 'src/translations/en.json', to: '../translations/en.json'}
+        { from: 'src/translations/en.json', to: '../translations/en.json' }
       ]
     }),
 
