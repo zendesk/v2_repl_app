@@ -59,8 +59,8 @@ module.exports = {
         { from: 'src/images/support/icon.svg', to: './support/icon_nav_bar.svg' },
         { from: 'src/images/support/icon.svg', to: './support/icon_top_bar.svg' },
         { from: 'src/images/support/icon.svg', to: './support/icon_ticket_editor.svg' },
-        // copy translations/en.yml
-        { from: 'src/translations/en.yml', to: '../translations/en.yml' }
+        // copy translations/en.json
+        { from: 'src/translations/en.json', to: '../translations/en.json' }
       ]
     }),
 
