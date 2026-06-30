@@ -13,7 +13,7 @@ jobs:
       - uses: zendesk/checkout@v2
       - uses: zendesk/setup-node@v2.5.0
         with:
-          node-version: '17'
+          node-version: '20'
       - uses: zendesk/setup-ruby@v1
         with:
           ruby-version: '2.7.7'
