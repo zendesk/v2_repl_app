@@ -8,7 +8,7 @@ An interactive programming environment for ZAF v2 developers.
 ## Dependencies
 [Zendesk apps tools](https://github.com/zendesk/zendesk_apps_tools)
 
-NodeJS >= 8.1.0
+NodeJS >= 20.20.2
 
 ## Owners
 This repo is maintained by @zendesk/wattle. You can contact us using that Github handle on issues or pull requests. If you are not able to use that team handle you can mention recent contributors from [here](https://github.com/zendesk/v2_repl_app/graphs/contributors).

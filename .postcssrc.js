@@ -2,7 +2,6 @@ module.exports = {
   plugins: {
     'postcss-preset-env': {
       features: {
-        'color-mod-function': true,
         'custom-properties': { preserve: false }
       }
     },
