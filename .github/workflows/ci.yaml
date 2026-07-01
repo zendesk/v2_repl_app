@@ -13,7 +13,7 @@ jobs:
       - uses: zendesk/checkout@v2
       - uses: zendesk/setup-node@v2.5.0
         with:
-          node-version: '17'
+          node-version: '20'
       - uses: zendesk/setup-ruby@v1
         with:
           ruby-version: '2.7.7'
@@ -27,6 +27,8 @@ jobs:
         run: gem install ffi -v 1.16.0
       - name: Install compatible hitimes Ruby gem
         run: gem install hitimes -v 2.0.0
+      - name: Install compatible i18n Ruby gem
+        run: gem install i18n -v 1.14.8
       - run: gem install zendesk_apps_tools -v 3.9.3
       - run: zat translate to_json --path=./src
       - run: cat ./src/translations/en.json
