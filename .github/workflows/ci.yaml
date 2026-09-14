@@ -29,6 +29,8 @@ jobs:
         run: gem install hitimes -v 2.0.0
       - name: Install compatible i18n Ruby gem
         run: gem install i18n -v 1.14.8
+      - name: Install compatible marcel Ruby gem
+        run: gem install marcel -v 1.2.1
       - run: gem install zendesk_apps_tools -v 3.9.3
       - run: zat translate to_json --path=./src
       - run: cat ./src/translations/en.json
