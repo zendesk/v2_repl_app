@@ -16,7 +16,7 @@ jobs:
           node-version: '20'
       - uses: zendesk/setup-ruby@v1
         with:
-          ruby-version: '2.7.7'
+          ruby-version: '2.7.8'
       - name: Vendor Cache
         id: vendor-cache
         uses: zendesk/cache@v2
@@ -34,5 +34,5 @@ jobs:
       - run: gem install zendesk_apps_tools -v 3.9.3
       - run: zat translate to_json --path=./src
       - run: cat ./src/translations/en.json
-      - run: npm install
+      - run: npm ci
       - run: npm run build
